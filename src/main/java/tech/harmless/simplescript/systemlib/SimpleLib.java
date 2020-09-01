@@ -42,4 +42,8 @@ public class SimpleLib {
         System.out.print(print);
         //TODO More later.
     }
+
+    private void exit(int code) {
+        throw new UnsupportedOperationException();
+    }
 }

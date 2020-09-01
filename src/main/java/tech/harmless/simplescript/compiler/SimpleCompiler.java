@@ -3,6 +3,8 @@ package tech.harmless.simplescript.compiler;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SimpleCompiler {
     /*
@@ -37,6 +39,15 @@ public class SimpleCompiler {
      * Tag processing.
      */
 
+    private static final HashMap<String, String> tagMap = new HashMap<>();
+
+    static {
+        tagMap.put("SYSTEM_LIB", "import System.simple;");
+        tagMap.put("ENTRY", "void main()");
+        tagMap.put("ENTRY_STRING", "string ENTRY_STRING = \"Not Yet Supported!\";");
+        tagMap.put("FAIL", "throw \"Failed!\";");
+    }
+
     public static boolean compileUsingBuildFile(String buildFile) {
         //TODO Allow for processing of a build file.
         return false;
@@ -45,6 +56,7 @@ public class SimpleCompiler {
     public static boolean compile(String entryFile) { //TODO Check for directory info.
         String eFile = importFile(entryFile);
         eFile = removeCommentsAndEmpty(eFile);
+        eFile = replacePreTags(eFile);
 
         System.out.println("Hello!\n" + eFile);
 
@@ -111,17 +123,26 @@ public class SimpleCompiler {
         return reconstruct.toString();
     }
 
-    private static String removeProcessTags(String file) {
-        /*
-         * TAGS:
+    private static String replacePreTags(String file) {
+        /* TAGS:
          * SYSTEM_LIB
          * ENTRY
          * ENTRY_STRING
          * FAIL
          */
 
-        
+        String[] lines = file.split("\n");
 
-        return "NULL";
+        for(int i = 0; i < lines.length; i++)
+            if(lines[i].contains("#tag"))
+                for(Map.Entry<String, String> tags : tagMap.entrySet())
+                    if(lines[i].contains(("#tag " + tags.getKey())))
+                        lines[i] = lines[i].replace("#tag " + tags.getKey(), tags.getValue());
+
+        StringBuilder reconstruct = new StringBuilder();
+        for(String line : lines)
+            reconstruct.append(line.trim()).append("\n");
+
+        return reconstruct.toString();
     }
 }
