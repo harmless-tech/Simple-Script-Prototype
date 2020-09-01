@@ -1,13 +1,25 @@
-#tag USE_SYSTEM_LIB // Not really needed, system is always included.
+#tag USE_SYSTEM_LIB // Not really needed, system lib is always included.
 #tag STRICT // Checks if methods, vars, and special statements are valid.
 // #tag LOOSE Doesn't care, try's to compile no matter what.
 
-#tag INCLUDE // Includes other file in this file and compiles
+// Probably not going to use these tags.
+// #tag INCLUDE Includes other file in this file and compiles. 
 // #tag LINK Links the compiled other file to this file.
 import Basic.simple;
 
 // Comment
 // Order of methods should not matter.
+
+// Global Vars
+// Must use static if the var is not in a method.
+static int HELLO = 0;
+final static string QW = "20";
+
+// Not valid, all finals must be declared.
+// final static string LAL;
+
+// Not valid, finals cannot be from a method.
+// final static int TEST_ADD = Basic.add(2, 3);
 
 #tag ENTRY
 void main() {
@@ -21,10 +33,48 @@ void main() {
     #tag ENTRY_STRING
     string startString = "";
 
+	final int ree = 2;
     int what = 23;
     System.print(what);
 
     System.println(Basic.add(2, 3));
+	
+	int 11 = 2 % 2 * 2 / 2 + 2 - 2;
+	
+	float f = (float) "2.0";
+	float[] arr = new float[2];
+	float[] arr2 = { 2, 2 };
+	
+	(float, int) tup = (2, 2);
+	
+	string tween; // This is equal to "", since simple script doesn't allow for nulls.
+	int 23334; // This is valid and inits the var to 0.
+}
+
+void prims() {
+	/*
+	char
+	string
+	
+	int8
+	int16
+	int == int32
+	int64
+	
+	float32
+	float == float64
+	
+	byte
+	boolean
+	
+	arrays for all types;
+	float[] arr = new float[2];
+	float[] arr2 = { 2, 2 };
+	
+	tuples
+	(float, int) tup = (2, 2);
+	(float, int, string) tup2 = (2, 2, "string");
+	*/
 }
 
 int meme() {

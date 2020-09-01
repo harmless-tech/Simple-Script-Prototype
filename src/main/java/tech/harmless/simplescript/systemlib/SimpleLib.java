@@ -11,13 +11,14 @@ public class SimpleLib {
             return false;
 
         //TODO This only needs to run on startup.
+        // Only should run once.
 
         try {
             Class<?> c = SimpleLib.class;
             Method[] methods = c.getDeclaredMethods();
 
             for(Method m : methods) {
-                //TODO Add support for variable args.
+                //TODO Add support for variable args. (Check if args are valid first??)
                 //TODO Add support for return types.
 
                 if(m.getName().equals(methodName))
@@ -37,4 +38,8 @@ public class SimpleLib {
         //TODO More later.
     }
 
+    private void print(Object print) {
+        System.out.print(print);
+        //TODO More later.
+    }
 }

@@ -1,5 +1,9 @@
 #tag USE_SYSTEM_LIB
 
 int add(int x, int y) {
+
+	if(x == y)
+		#tag FAIL // Replaces with throw "Failure!";
+
     return x + y;
 }

@@ -1,0 +1,5 @@
+#tag USE_SYSTEM_LIB
+
+string test() {
+	return "Okay!";
+}
