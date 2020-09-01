@@ -1,9 +1,6 @@
 [Name]
 Test Scripts
 
-[Out]
-test-bin.csimple
-
 [Source]
 src
 

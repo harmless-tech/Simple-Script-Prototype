@@ -1,0 +1,7 @@
+Simple Script:
+    - Only primitive data.
+    - No structs.
+    - Option of compiling to internal data type to run.
+    - One file per method??
+    - Include other files.
+    - Java like syntax.

@@ -1,0 +1,32 @@
+#tag USE_SYSTEM_LIB // Not really needed, system is always included.
+#tag STRICT // Checks if methods, vars, and special statements are valid.
+// #tag LOOSE Doesn't care, try's to compile no matter what.
+
+#tag INCLUDE // Includes other file in this file and compiles
+// #tag LINK Links the compiled other file to this file.
+import Basic.simple;
+
+// Comment
+// Order of methods should not matter.
+
+#tag ENTRY
+void main() {
+    /*int keke = 23;
+
+
+    */
+
+    meme();
+
+    #tag ENTRY_STRING
+    string startString = "";
+
+    int what = 23;
+    System.print(what);
+
+    System.println(Basic.add(2, 3));
+}
+
+int meme() {
+    return -1;
+}

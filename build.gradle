@@ -18,7 +18,11 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.2'
+
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.6.2'
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.6.2'
 }
 
 application {
@@ -30,3 +34,30 @@ jar {
         attributes 'Main-Class': 'tech.harmless.simplescript.SimpleScript'
     }
 }
+
+// Broken and stupid
+/*
+test {
+    useJUnitPlatform()
+
+    systemProperties = [
+            "junit.jupiter.extensions.autodetection.enabled": true
+    ]
+
+    dependsOn 'cleanTest'
+}
+
+plugins.withType(JavaPlugin).configureEach {
+    java {
+        modularity.inferModulePath = true
+    }
+}
+
+def moduleName = "weetest"
+def patchArgs = ["--patch-module", "$moduleName=${tasks.compileJava.destinationDirectory.asFile.get().path}"]
+tasks.compileTestJava {
+    options.compilerArgs += patchArgs
+}
+tasks.test {
+    jvmArgs += patchArgs
+}*/
