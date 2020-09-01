@@ -1,11 +1,12 @@
-#tag USE_SYSTEM_LIB // Not really needed, system lib is always included.
-#tag STRICT // Checks if methods, vars, and special statements are valid.
+#tag SYSTEM_LIB // Not really needed, system lib is always included.
+// #tag STRICT // Checks if methods, vars, and special statements are valid.
 // #tag LOOSE Doesn't care, try's to compile no matter what.
 
 // Probably not going to use these tags.
 // #tag INCLUDE Includes other file in this file and compiles. 
 // #tag LINK Links the compiled other file to this file.
 import Basic.simple;
+import okay/RealBasic.simple
 
 // Comment
 // Order of methods should not matter.
@@ -21,16 +22,17 @@ final static string QW = "20";
 // Not valid, finals cannot be from a method.
 // final static int TEST_ADD = Basic.add(2, 3);
 
-#tag ENTRY
-void main() {
+#tag ENTRY { // #tag Entry == void main()
     /*int keke = 23;
 
 
     */
 
     meme();
+	
+	assert(true);
 
-    #tag ENTRY_STRING
+    #tag ENTRY_STRING // == final String ENTRY_STRING = entry vars;
     string startString = "";
 
 	final int ree = 2;

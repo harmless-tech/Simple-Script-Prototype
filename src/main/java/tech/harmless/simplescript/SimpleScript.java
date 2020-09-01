@@ -1,5 +1,6 @@
 package tech.harmless.simplescript;
 
+import tech.harmless.simplescript.compiler.SimpleCompiler;
 import tech.harmless.simplescript.systemlib.SimpleLib;
 
 import java.util.Date;
@@ -18,6 +19,8 @@ public class SimpleScript {
         System.out.println("All args are ignored for now!");
 
         SimpleLib.run("println", "Hello! I'm the lib");
+
+        SimpleCompiler.compile("Entry.simple");
     }
 
     public static void main(String[] args) {

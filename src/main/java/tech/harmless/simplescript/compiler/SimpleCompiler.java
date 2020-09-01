@@ -1,5 +1,9 @@
 package tech.harmless.simplescript.compiler;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class SimpleCompiler {
     /*
      * LINE PRE-PROCESS
@@ -16,6 +20,7 @@ public class SimpleCompiler {
      * Process #tag commands.
      * This compiler might just ignore a lot of junk information.
      * Finals should just insert the statement into every place that they are declared in.
+     * Imports.
      *
      * LINE PROCESS
      * If {, start a new scope. If }, end scope.
@@ -29,6 +34,7 @@ public class SimpleCompiler {
      *
      * LIST OF DOING
      * Remove all comments from the file.
+     * Tag processing.
      */
 
     public static boolean compileUsingBuildFile(String buildFile) {
@@ -36,7 +42,86 @@ public class SimpleCompiler {
         return false;
     }
 
-    public static boolean compile(String entryFile) {
+    public static boolean compile(String entryFile) { //TODO Check for directory info.
+        String eFile = importFile(entryFile);
+        eFile = removeCommentsAndEmpty(eFile);
+
+        System.out.println("Hello!\n" + eFile);
+
+        return true;
+    }
+
+    private static String importFile(String fileName) {
+        try {
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileName));
+            byte[] file = in.readAllBytes();
+            in.close();
+
+            return new String(file);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+        return "NULL"; //TODO Handle this!
+    }
+
+    private static String removeCommentsAndEmpty(String file) {
+        String[] lines = file.split("\n");
+
+        // Process // comments.
+        for(int i = 0; i < lines.length; i++) {
+            int index = lines[i].indexOf("//");
+
+            if(index != -1)
+                lines[i] = lines[i].substring(0, index);
+        }
+
+        // Process ** comments.
+        boolean inComment = false;
+        for(int i = 0; i < lines.length; i++) {
+            int startIndex = lines[i].indexOf("/*");
+            int endIndex = lines[i].indexOf("*/");
+
+            if(startIndex != -1)
+                inComment = true;
+
+            if(inComment) {
+                if(startIndex != -1 && endIndex == -1) // Only start.
+                    lines[i] = lines[i].substring(0, startIndex);
+                else if(startIndex != -1) // Start and End.
+                    lines[i] = lines[i].substring(0, startIndex) + lines[i].substring(endIndex + 2);
+                else if(endIndex != -1) // Only End.
+                    lines[i] = lines[i].substring(endIndex + 2);
+                else // Remove Whole Line.
+                    lines[i] = "";
+            }
+
+            if(inComment && endIndex != -1)
+                inComment = false;
+        }
+
+        // Remove empty lines.
+        StringBuilder reconstruct = new StringBuilder();
+        for(String line : lines)
+            if(!line.isBlank())
+                reconstruct.append(line.trim()).append("\n");
+
+        return reconstruct.toString();
+    }
+
+    private static String removeProcessTags(String file) {
+        /*
+         * TAGS:
+         * SYSTEM_LIB
+         * ENTRY
+         * ENTRY_STRING
+         * FAIL
+         */
+
         
+
+        return "NULL";
     }
 }

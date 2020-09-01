@@ -1,4 +1,4 @@
-#tag USE_SYSTEM_LIB
+#tag SYSTEM_LIB
 
 int add(int x, int y) {
 
