@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'tech.harmless.simplescript'
-version '0.0.1-ALPHA'
+version '0.0.1-PROTOTYPE'
 
 sourceCompatibility = 14
 targetCompatibility = 14

@@ -1,0 +1,17 @@
+#tag SYSTEM_LIB
+
+#tag ENTRY {
+	{
+	}
+	
+	{
+	{
+		meme();
+	}
+	}
+	
+	meme();
+}
+
+void meme() {
+}

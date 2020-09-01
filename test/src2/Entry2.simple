@@ -1,0 +1,23 @@
+#tag SYSTEM_LIB
+
+static int test;
+//static final boolean TRUE = true;
+
+#tag ENTRY {
+	#tag ENTRY_STRING
+	
+	{
+		int tt = 23;
+	}
+	
+	int alloc = 32;
+	System.println(32);
+}
+
+boolean meme() {
+	return true;
+}
+
+int loop(int val) {
+	return val;
+}

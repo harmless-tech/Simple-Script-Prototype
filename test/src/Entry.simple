@@ -5,8 +5,8 @@
 // Probably not going to use these tags.
 // #tag INCLUDE Includes other file in this file and compiles. 
 // #tag LINK Links the compiled other file to this file.
-import Basic.simple;
-import okay/RealBasic.simple
+//import Basic.simple;
+//import okay/RealBasic.simple
 
 // Comment
 // Order of methods should not matter.
@@ -39,11 +39,18 @@ final static string QW = "20";
     int what = 23;
     System.print(what);
 
-    System.println(Basic.add(2, 3));
+    //System.println(Basic.add(2, 3));
 	
 	int 11 = 2 % 2 * 2 / 2 + 2 - 2;
 	
+	// Do I really want this??
+	//int ted = {
+	//	return 0;
+	//};
+	
 	assert(true);
+	
+	Basic.killer;
 	
 	float f = (float) "2.0";
 	float[] arr = new float[2];
@@ -51,25 +58,31 @@ final static string QW = "20";
 	
 	(float, int) tup = (2, 2);
 	
+	// I have no null!
 	string tween; // This is equal to "", since simple script doesn't allow for nulls.
 	int 23334; // This is valid and inits the var to 0.
+	
+	System.println(tween);
 }
 
 void prims() {
 	/*
-	char
-	string
+	char = '0'
+	string = ""
 	
-	int8
-	int16
-	int == int32
-	int64
+	int8 = 0
+	int16 = 0
+	int == int32 = 0
+	int64 = 0
 	
-	float32
-	float == float64
+	float32 = 0.0
+	float == float64 = 0.0
 	
-	byte
-	boolean
+	byte = 0
+	boolean = false
+	
+	object -> Any prim type, except void. = 0
+	void -> No return! Cannot be used in statements.
 	
 	arrays for all types;
 	float[] arr = new float[2];
@@ -82,5 +95,13 @@ void prims() {
 }
 
 int meme() {
+	/*
+	LATER!!!
+	lamdas?
+	(NO VARS FOR NOW!) -> {
+		// I can edit vars outside my scope.
+	}
+	*/
+
     return -1;
 }

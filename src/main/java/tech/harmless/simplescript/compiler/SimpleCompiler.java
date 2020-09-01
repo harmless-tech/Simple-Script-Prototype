@@ -160,6 +160,5 @@ public class SimpleCompiler {
 
     //TODO Change return type.
     private static void implCompile(String line) {
-
     }
 }

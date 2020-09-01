@@ -1,5 +1,7 @@
 #tag SYSTEM_LIB
 
+static int killer = 435;
+
 int add(int x, int y) {
 
 	if(x == y)
