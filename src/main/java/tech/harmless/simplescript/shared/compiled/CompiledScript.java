@@ -1,7 +1,5 @@
 package tech.harmless.simplescript.shared.compiled;
 
-import java.util.HashMap;
-
 //TODO This will be the part that the runtime can use.
 public class CompiledScript {
 	

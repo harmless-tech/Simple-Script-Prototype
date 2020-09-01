@@ -43,6 +43,8 @@ final static string QW = "20";
 	
 	int 11 = 2 % 2 * 2 / 2 + 2 - 2;
 	
+	assert(true);
+	
 	float f = (float) "2.0";
 	float[] arr = new float[2];
 	float[] arr2 = { 2, 2 };

@@ -37,6 +37,7 @@ public class SimpleCompiler {
      * LIST OF DOING
      * Remove all comments from the file.
      * Tag processing.
+     * All file data on one line.
      */
 
     private static final HashMap<String, String> tagMap = new HashMap<>();
@@ -57,6 +58,7 @@ public class SimpleCompiler {
         String eFile = importFile(entryFile);
         eFile = removeCommentsAndEmpty(eFile);
         eFile = replacePreTags(eFile);
+        eFile = oneLine(eFile);
 
         System.out.println("Hello!\n" + eFile);
 
@@ -144,5 +146,20 @@ public class SimpleCompiler {
             reconstruct.append(line.trim()).append("\n");
 
         return reconstruct.toString();
+    }
+
+    private static String oneLine(String file) {
+        StringBuilder one = new StringBuilder();
+
+        String[] lines = file.split("\n");
+        for(String line : lines)
+            one.append(line);
+
+        return one.toString();
+    }
+
+    //TODO Change return type.
+    private static void implCompile(String line) {
+
     }
 }
