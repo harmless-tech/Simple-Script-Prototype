@@ -1,5 +1,6 @@
 package tech.harmless.simplescript.shared;
 
+import tech.harmless.simplescript.shared.stack.MethodStackFrame;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
 import tech.harmless.simplescript.shared.vars.AllocVar;
@@ -10,13 +11,13 @@ import java.util.Map;
 
 public class CompiledScript {
 
-    private final Map<String, StackFrame> methods; // Methods names: ClassName.MethodName
+    private final Map<String, MethodStackFrame> methods; // Methods names: ClassName.MethodName
 
     private final List<StackFrame> frames;
     private int currentFrame;
 
     //TODO Refactor to allow for globals!
-    public CompiledScript(String entryMethod /* EntryClassName.MethodName */, Map<String, StackFrame> methods) {
+    public CompiledScript(String entryMethod /* EntryClassName.MethodName */, Map<String, MethodStackFrame> methods) {
         this.methods = methods;
 
         frames = new ArrayList<>();
@@ -26,6 +27,10 @@ public class CompiledScript {
         frames.add(methods.get(entryMethod));
 
         assert(frames.size() >= 1);
+    }
+
+    public boolean hasNexFrame() {
+        return currentFrame >= 0;
     }
 
     public int currentFrameIndex() {
@@ -43,7 +48,7 @@ public class CompiledScript {
     public void pushFrame(String methodName) {
         assert(methods.containsKey(methodName));
 
-        frames.add(methods.get(methodName));
+        frames.add(new MethodStackFrame((MethodStackFrame) methods.get(methodName)));
         currentFrame++;
     }
 

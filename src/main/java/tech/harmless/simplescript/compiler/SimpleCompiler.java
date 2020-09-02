@@ -209,7 +209,7 @@ public class SimpleCompiler {
 
         // void main() {{}{{meme();}}meme();}void meme() {{}}
         //TODO Remove!
-        Map<String, StackFrame> methods = new HashMap<>();
+        Map<String, MethodStackFrame> methods = new HashMap<>();
 
         // Frame: main
         {
@@ -218,10 +218,10 @@ public class SimpleCompiler {
                     new Instruction(EnumInstruction.END_SCOPE, null),
                     new Instruction(EnumInstruction.CREATE_SCOPE, null),
                     new Instruction(EnumInstruction.CREATE_SCOPE, null),
-                    new Instruction(EnumInstruction.INVOKE_METHOD, new Tuple<>("meme", new Object[0])),
+                    new Instruction(EnumInstruction.INVOKE_METHOD, new Tuple<>("Entry3.meme", new Object[0])),
                     new Instruction(EnumInstruction.END_SCOPE, null),
                     new Instruction(EnumInstruction.END_SCOPE, null),
-                    new Instruction(EnumInstruction.INVOKE_METHOD, new Tuple<>("meme", new Object[0])),
+                    new Instruction(EnumInstruction.INVOKE_METHOD, new Tuple<>("Entry3.meme", new Object[0])),
                     new Instruction(EnumInstruction.ALLOC_VAR, new Triplet<>("return", EnumType.VOID, null)),
                     new Instruction(EnumInstruction.RETURN_METHOD, null)
             };

@@ -23,12 +23,12 @@ public class MethodStackFrame extends StackFrame {
     }
 
     public MethodStackFrame(MethodStackFrame sf) {
-        this((Instruction[]) sf.instructions.toArray(), sf.returnType);
+        this(sf.instructions.toArray(new Instruction[sf.instructions.size()]), sf.returnType);
     }
 
     @Override
     public boolean hasInstruction() {
-        return instructions.size() == currentPos;
+        return instructions.size() > currentPos;
     }
 
     @Override

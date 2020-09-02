@@ -1,6 +1,8 @@
 package tech.harmless.simplescript;
 
 import tech.harmless.simplescript.compiler.SimpleCompiler;
+import tech.harmless.simplescript.runtime.SimpleRuntime;
+import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.systemlib.SimpleLib;
 
 import java.util.Date;
@@ -14,6 +16,8 @@ public class SimpleScript {
     private static final String DEFAULT_BUILD_FILE = "build.simplebuild";
 
     public SimpleScript(String[] args) {
+        assert false;
+
         System.out.println("Simple Script started at " + new Date());
         System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better.");
 
@@ -21,9 +25,11 @@ public class SimpleScript {
         System.out.println("All args are ignored for now!");
 
         SimpleLib.run("println", "Hello! I'm the lib");
+        System.out.println();
 
         //SimpleCompiler.compile("Entry.simple");
-        SimpleCompiler.compile("Entry3.simple"); //TODO Runtime.
+        CompiledScript script = SimpleCompiler.compile("Entry3.simple");
+        new SimpleRuntime(script).run();
     }
 
     public static void main(String[] args) {
