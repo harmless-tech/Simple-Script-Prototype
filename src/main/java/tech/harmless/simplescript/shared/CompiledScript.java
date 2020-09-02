@@ -64,6 +64,13 @@ public class CompiledScript {
         return currentFrame == -1;
     }
 
+    public void setVar(String name, Object data) {
+        assert(data != null);
+
+        AllocVar var = getVar(name);
+        var.setValue(data);
+    }
+
     public AllocVar getVar(String name) {
         AllocVar var = null;
 

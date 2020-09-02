@@ -5,9 +5,9 @@ import tech.harmless.simplescript.shared.vars.EnumType;
 
 public class ScopeStackFrame extends StackFrame {
 
-    private final MethodStackFrame parent;
+    private final StackFrame parent;
 
-    public ScopeStackFrame(MethodStackFrame parent) {
+    public ScopeStackFrame(StackFrame parent) {
         super(EnumType.VOID); //TODO This needs to change for scoped var dec.
 
         this.parent = parent;

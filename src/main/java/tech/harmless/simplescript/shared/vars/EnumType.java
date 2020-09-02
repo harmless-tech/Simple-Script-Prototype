@@ -1,20 +1,20 @@
 package tech.harmless.simplescript.shared.vars;
 
 public enum EnumType {
-    CHAR,
-    STRING,
+    CHAR, // Default: '0'
+    STRING, // Default: ""
 
-    INT8,
-    //INT16, TODO Not a standard java type have to add later.
-    INT32, // Default (INT)
-    INT64,
+    INT8, // Default: 0
+    //INT16, Default: 0, TODO Not a standard java type have to add later.
+    INT32, // Default: 0, Alias: int
+    INT64, // Default: 0
 
-    FLOAT32,
-    FLOAT64, // Default (FLOAT)
+    FLOAT32, // Default: 0.0
+    FLOAT64, // Default: 0, Alias: float
 
-    BYTE,
-    BOOLEAN,
+    BYTE, // Default: 0
+    BOOLEAN, // Default: false
 
-    OBJECT,
-    VOID // Only should be used for methods.
+    OBJECT, // Default: 0
+    VOID // Default: "VOID", Only should be used for methods.
 }

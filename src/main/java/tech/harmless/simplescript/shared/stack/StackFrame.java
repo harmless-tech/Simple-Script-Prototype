@@ -28,9 +28,6 @@ public abstract class StackFrame {
     }
 
     public AllocVar getVar(String name) {
-        AllocVar var = allocatedVars.get(name);
-
-        assert(var != null);
-        return var;
+        return allocatedVars.get(name); // This is allowed to be null.
     }
 }
