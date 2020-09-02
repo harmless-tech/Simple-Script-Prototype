@@ -1,11 +1,11 @@
 package tech.harmless.simplescript.shared.instructions;
 
-public class CompiledInstruction {
+public class Instruction {
 
     private final EnumInstruction instruction;
     private final Object data;
 
-    public CompiledInstruction(EnumInstruction instruction, Object data) {
+    public Instruction(EnumInstruction instruction, Object data) {
         this.instruction = instruction;
         this.data = data;
     }

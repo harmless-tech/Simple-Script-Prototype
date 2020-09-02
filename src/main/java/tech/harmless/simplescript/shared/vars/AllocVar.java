@@ -10,6 +10,12 @@ public class AllocVar {
         this.value = value;
     }
 
+    public void setValue(Object value) {
+        assert(value != null);
+
+        this.value = value;
+    }
+
     public EnumType getType() {
         return type;
     }

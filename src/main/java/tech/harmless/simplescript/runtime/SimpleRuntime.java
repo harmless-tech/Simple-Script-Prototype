@@ -1,10 +1,11 @@
 package tech.harmless.simplescript.runtime;
 
 import tech.harmless.simplescript.shared.CompiledScript;
-import tech.harmless.simplescript.shared.StackFrame;
-import tech.harmless.simplescript.shared.instructions.CompiledInstruction;
-import tech.harmless.simplescript.shared.instructions.EnumInstructionDataType;
+import tech.harmless.simplescript.shared.stack.StackFrame;
 
+/*
+ * return info is through the return var, since it is special.
+ */
 public class SimpleRuntime {
 
     private final CompiledScript script;
@@ -21,7 +22,12 @@ public class SimpleRuntime {
         running = true;
 
         while(running) {
+            //TODO Fix
+
+            // Get the current stack frame to process.
             StackFrame cFrame = script.getCurrentFrame();
+
+            /*StackFrame cFrame = script.getCurrentFrame();
             if(cFrame != null) {
                 while(cFrame.hasInstructions()) {
                     CompiledInstruction in = cFrame.nextInstruction();
@@ -30,8 +36,8 @@ public class SimpleRuntime {
                             assert(false);
                         }
                         case ALLOC_VAR -> {
-                            /*CompiledVar var = createVar(in.getInstruction());
-                            cFrame.allocVar();*/
+                            *//*CompiledVar var = createVar(in.getInstruction());
+                            cFrame.allocVar();*//*
                         }
                         case CALL_METHOD -> {
                             script.
@@ -41,19 +47,12 @@ public class SimpleRuntime {
                             cFrame = script.getCurrentFrame();
                         }
                         case END_SCOPE -> {
-                            //TODO
                         }
                     }
                 }
-
-                //TODO
-            }
-
-            running = false;
+                }*/
         }
-    }
 
-    private StackFrame createFrame(EnumInstructionDataType type, Object data) {
-
+        running = false;
     }
 }

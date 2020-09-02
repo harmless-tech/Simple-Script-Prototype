@@ -16,5 +16,5 @@ public enum EnumType {
     BOOLEAN,
 
     OBJECT,
-    VOID // Only should be used has a return type.
+    VOID // Only should be used for methods.
 }

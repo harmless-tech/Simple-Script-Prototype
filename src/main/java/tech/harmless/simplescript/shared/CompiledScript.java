@@ -1,67 +1,80 @@
 package tech.harmless.simplescript.shared;
 
+import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
+import tech.harmless.simplescript.shared.stack.StackFrame;
 import tech.harmless.simplescript.shared.vars.AllocVar;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-//TODO This will be the part that the runtime can use.
 public class CompiledScript {
-	
-	private final String entryMethod; // EntryClassName.MethodName
-	private final ArrayList<StackFrame> frames;
-	private final ArrayList<StackFrame> methodFrames;
 
-	private int currentFrame;
+    private final Map<String, StackFrame> methods; // Methods names: ClassName.MethodName
 
-	/*
-	 * Focus on classes, methods, and vars.
-	 * Structure
-	 * - classes
-	 *  - global vars (global scope)
-	 *  - methods
-	 *      - vars (method scope)
-	 *      - call to other methods.
-	 */
+    private final List<StackFrame> frames;
+    private int currentFrame;
 
-	/*
-	 * Internal methods are marked with the name of the class.
-	 */
+    public CompiledScript(String entryMethod /* EntryClassName.MethodName */, Map<String, StackFrame> methods) {
+        this.methods = methods;
 
-	public CompiledScript(String entryMethod, StackFrame initStack, ) {
-		this.entryMethod = entryMethod;
+        frames = new ArrayList<>();
+        currentFrame = 0;
 
-		frames = new ArrayList<>();
-		frames.add(initStack);
-		currentFrame = 0;
-	}
+        assert(methods.containsKey(entryMethod));
+        frames.add(methods.get(entryMethod));
 
-	public int currentFrame() {
-		return currentFrame;
-	}
+        assert(frames.size() >= 1);
+    }
 
-	public StackFrame getCurrentFrame() {
-		return frames.get(currentFrame);
-	}
+    public int currentFrameIndex() {
+        assert(currentFrame >= 0);
 
-	public void nextFrame() {
-		currentFrame++;
-	}
+        return currentFrame;
+    }
 
-	public void removeCurrentFrame() {
-		frames.remove(currentFrame);
-		currentFrame--;
-	}
+    public StackFrame getCurrentFrame() {
+        assert(currentFrame >= 0);
 
-	public AllocVar getVar(String name) {
-		AllocVar var = null;
+        return frames.get(currentFrame);
+    }
 
-		for(int i = frames.size() - 1; i >= 0; i--) {
-			var = frames.get(i).getVar(name);
+    public void pushFrame(String methodName) {
+        assert(methods.containsKey(methodName));
 
-			if(var != null)
-				break;
-		}
+        frames.add(methods.get(methodName));
+        currentFrame++;
+    }
 
-		return var;
-	}
+    public void pushFrame(ScopeStackFrame ssf) {
+        assert(ssf != null);
+
+        frames.add(ssf);
+        currentFrame++;
+    }
+
+    /**
+     * Discards the current frame.
+     * @return {@code true} if the program is out of frames.
+     */
+    public boolean discardCurrentFrame() {
+        frames.remove(currentFrame);
+        currentFrame--;
+
+        return currentFrame == -1;
+    }
+
+    public AllocVar getVar(String name) {
+        AllocVar var = null;
+
+        for(int i = frames.size() - 1; i >= 0; i--) {
+            var = frames.get(i).getVar(name);
+
+            if(var != null)
+                break;
+        }
+
+        assert(var != null);
+        return var;
+    }
 }
