@@ -5,12 +5,15 @@ import tech.harmless.simplescript.shared.vars.AllocVar;
 import tech.harmless.simplescript.shared.vars.EnumType;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class StackFrame {
 
     public final EnumType returnType;
 
-    private final HashMap<String, AllocVar> allocatedVars;
+    private final Map<String, AllocVar> allocatedVars;
+
+    // public final boolean method
 
     public StackFrame(EnumType returnType) {
         allocatedVars = new HashMap<>();

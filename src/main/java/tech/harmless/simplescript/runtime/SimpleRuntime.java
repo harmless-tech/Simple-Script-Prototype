@@ -33,17 +33,17 @@ public class SimpleRuntime {
             // Get the current stack frame to process.
             StackFrame cFrame = script.getCurrentFrame();
             //TODO One loop cache of data???
-            
+            //TODO Add registers that store data.
             while(cFrame != null && cFrame.hasInstruction()) {
                 Instruction in = cFrame.nextInstruction();
                 switch(in.getInstruction()) {
                     default -> {
-                        assert(false);
+                        assert(false) : "Unsupported instruction.";
                     }
                     case ALLOC_VAR -> {
                         System.out.println("ALLOC_VAR");
 
-                        Triplet<String, EnumType, Object> data = (Triplet<String, EnumType, Object>) in.getData();
+                         Triplet<String, EnumType, Object> data = (Triplet<String, EnumType, Object>) in.getData();
                         cFrame.allocVar(data.x, new AllocVar(data.y, data.z));
                     }
                     case SET_VAR -> {

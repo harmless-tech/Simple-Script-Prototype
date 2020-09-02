@@ -5,6 +5,7 @@ import tech.harmless.simplescript.runtime.SimpleRuntime;
 import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.systemlib.SimpleLib;
 
+import java.util.Arrays;
 import java.util.Date;
 
 //TODO Rewrite in rust.
@@ -16,10 +17,9 @@ public class SimpleScript {
     private static final String DEFAULT_BUILD_FILE = "build.simplebuild";
 
     public SimpleScript(String[] args) {
-        assert false;
-
         System.out.println("Simple Script started at " + new Date());
         System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better.");
+        System.out.println("Args: " + Arrays.toString(args));
 
         //TODO Redo to include args.
         System.out.println("All args are ignored for now!");
@@ -28,7 +28,7 @@ public class SimpleScript {
         System.out.println();
 
         //SimpleCompiler.compile("Entry.simple");
-        CompiledScript script = SimpleCompiler.compile("Entry3.simple");
+        CompiledScript script = SimpleCompiler.compile("test/src2/Entry3.simple");
         new SimpleRuntime(script).run();
     }
 

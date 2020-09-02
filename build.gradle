@@ -3,8 +3,7 @@ plugins {
     id 'idea'
     id 'application'
 
-    id 'org.javamodularity.moduleplugin' version '1.7.0'
-    id 'com.github.johnrengelman.shadow' version '6.0.0'
+    //id 'com.github.johnrengelman.shadow' version '6.0.0'
 }
 
 group 'tech.harmless.simplescript'
@@ -13,55 +12,21 @@ version '0.0.1-PROTOTYPE'
 sourceCompatibility = 14
 targetCompatibility = 14
 
-mainClassName = 'tech.harmless.simplescript.SimpleScript'
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
-
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.2'
-    testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.6.2'
-    testImplementation group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.6.2'
 }
 
 application {
+    mainModule = 'simplescript'
     mainClass = 'tech.harmless.simplescript.SimpleScript'
+    applicationDefaultJvmArgs = ['-Dfile.encoding=utf-8', '-ea']
 }
 
-jar {
+/*jar {
     manifest {
         attributes 'Main-Class': 'tech.harmless.simplescript.SimpleScript'
     }
-}
-
-// Broken and stupid.
-// Testing is needed, but modules are broken in gradle... still.
-/*
-test {
-    useJUnitPlatform()
-
-    systemProperties = [
-            "junit.jupiter.extensions.autodetection.enabled": true
-    ]
-
-    dependsOn 'cleanTest'
-}
-
-plugins.withType(JavaPlugin).configureEach {
-    java {
-        modularity.inferModulePath = true
-    }
-}
-
-def moduleName = "weetest"
-def patchArgs = ["--patch-module", "$moduleName=${tasks.compileJava.destinationDirectory.asFile.get().path}"]
-tasks.compileTestJava {
-    options.compilerArgs += patchArgs
-}
-tasks.test {
-    jvmArgs += patchArgs
 }*/
