@@ -28,6 +28,7 @@ public class SimpleRuntime {
     public void run() {
         running = true;
 
+        //TODO Data Cache.
         while(running) {
             // Get the current stack frame to process.
             StackFrame cFrame = script.getCurrentFrame();
@@ -52,7 +53,7 @@ public class SimpleRuntime {
                         String data = (String) in.getData();
                         script.getVar(data); //TODO Where to put this???
                     }
-                    case CALL_METHOD -> {
+                    case INVOKE_METHOD -> {
                         Tuple<String, Object[]> data = (Tuple<String, Object[]>) in.getData();
                         script.pushFrame(data.x); //TODO What to do with data???
                         cFrame = script.getCurrentFrame();
@@ -67,7 +68,7 @@ public class SimpleRuntime {
                         script.discardCurrentFrame();
                         cFrame = script.getCurrentFrame();
                     }
-                    case NEW_SCOPE -> {
+                    case CREATE_SCOPE -> {
                         script.pushFrame(new ScopeStackFrame(cFrame));
                         cFrame = script.getCurrentFrame();
                     }

@@ -1,10 +1,22 @@
 package tech.harmless.simplescript.compiler;
 
+import tech.harmless.simplescript.SimpleScript;
+import tech.harmless.simplescript.misc.Triplet;
+import tech.harmless.simplescript.misc.Tuple;
+import tech.harmless.simplescript.shared.CompiledScript;
+import tech.harmless.simplescript.shared.instructions.EnumInstruction;
+import tech.harmless.simplescript.shared.instructions.Instruction;
+import tech.harmless.simplescript.shared.stack.MethodStackFrame;
+import tech.harmless.simplescript.shared.stack.StackFrame;
+import tech.harmless.simplescript.shared.vars.EnumType;
+
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class SimpleCompiler {
     /*
@@ -40,21 +52,53 @@ public class SimpleCompiler {
      * All file data on one line.
      */
 
+    private static final Set<String> reservedWords = new HashSet<>(); //TODO Use this!
     private static final HashMap<String, String> tagMap = new HashMap<>();
 
     static {
+        // reservedWords
+        reservedWords.add("if");
+        reservedWords.add("if else");
+        reservedWords.add("else");
+        reservedWords.add("for");
+        reservedWords.add("while");
+        reservedWords.add("return");
+        reservedWords.add("switch");
+        reservedWords.add("case");
+        reservedWords.add("break");
+
+        reservedWords.add("import");
+        reservedWords.add("static");
+        reservedWords.add("final");
+
+        reservedWords.add("void");
+        reservedWords.add("object");
+        reservedWords.add("boolean");
+        reservedWords.add("byte");
+        reservedWords.add("float");
+        reservedWords.add("float32");
+        reservedWords.add("float64");
+        reservedWords.add("int");
+        reservedWords.add("int8");
+        reservedWords.add("int16");
+        reservedWords.add("int32");
+        reservedWords.add("int64");
+        reservedWords.add("char");
+        reservedWords.add("string");
+
+        // tagMap
         tagMap.put("SYSTEM_LIB", "import System.simple;");
         tagMap.put("ENTRY", "void main()");
         tagMap.put("ENTRY_STRING", "string ENTRY_STRING = \"Not Yet Supported!\";");
         tagMap.put("FAIL", "throw \"Failed!\";");
     }
 
-    public static boolean compileUsingBuildFile(String buildFile) {
+    public static CompiledScript compileUsingBuildFile(String buildFile) {
         //TODO Allow for processing of a build file.
-        return false;
+        return null;
     }
 
-    public static boolean compile(String entryFile) { //TODO Check for directory info.
+    public static CompiledScript compile(String entryFile) { //TODO Check for directory info.
         String eFile = importFile(entryFile);
         eFile = removeCommentsAndEmpty(eFile);
         eFile = replacePreTags(eFile);
@@ -62,7 +106,7 @@ public class SimpleCompiler {
 
         System.out.println("Hello!\n" + eFile);
 
-        return true;
+        return implCompile(eFile);
     }
 
     private static String importFile(String fileName) {
@@ -158,7 +202,51 @@ public class SimpleCompiler {
         return one.toString();
     }
 
-    //TODO Change return type.
-    private static void implCompile(String line) {
+    //TODO Change return type?
+    private static CompiledScript implCompile(String line) {
+        //TODO Add a lot of missing features.
+        //TODO Compile automatically, not by hand.
+
+        // void main() {{}{{meme();}}meme();}void meme() {{}}
+        //TODO Remove!
+        Map<String, StackFrame> methods = new HashMap<>();
+
+        // Frame: main
+        {
+            Instruction[] ins = {
+                    new Instruction(EnumInstruction.CREATE_SCOPE, null),
+                    new Instruction(EnumInstruction.END_SCOPE, null),
+                    new Instruction(EnumInstruction.CREATE_SCOPE, null),
+                    new Instruction(EnumInstruction.CREATE_SCOPE, null),
+                    new Instruction(EnumInstruction.INVOKE_METHOD, new Tuple<>("meme", new Object[0])),
+                    new Instruction(EnumInstruction.END_SCOPE, null),
+                    new Instruction(EnumInstruction.END_SCOPE, null),
+                    new Instruction(EnumInstruction.INVOKE_METHOD, new Tuple<>("meme", new Object[0])),
+                    new Instruction(EnumInstruction.ALLOC_VAR, new Triplet<>("return", EnumType.VOID, null)),
+                    new Instruction(EnumInstruction.RETURN_METHOD, null)
+            };
+            MethodStackFrame msf = new MethodStackFrame(ins, EnumType.VOID);
+            methods.put("Entry3.main", msf);
+        }
+
+        // Frame: meme
+        {
+            Instruction[] ins = {
+                    new Instruction(EnumInstruction.CREATE_SCOPE, null),
+                    new Instruction(EnumInstruction.END_SCOPE, null),
+                    new Instruction(EnumInstruction.ALLOC_VAR, new Triplet<>("return", EnumType.VOID, null)),
+                    new Instruction(EnumInstruction.RETURN_METHOD, null)
+            };
+            MethodStackFrame msf = new MethodStackFrame(ins, EnumType.VOID);
+            methods.put("Entry3.meme", msf);
+        }
+        // Remove!
+
+        //CompiledScript script = new CompiledScript();
+        return new CompiledScript("Entry3.main", methods);
     }
+
+    /*private static MethodStackFrame compileMethod(String line) {
+
+    }*/
 }

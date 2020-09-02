@@ -15,6 +15,7 @@ public class CompiledScript {
     private final List<StackFrame> frames;
     private int currentFrame;
 
+    //TODO Refactor to allow for globals!
     public CompiledScript(String entryMethod /* EntryClassName.MethodName */, Map<String, StackFrame> methods) {
         this.methods = methods;
 
