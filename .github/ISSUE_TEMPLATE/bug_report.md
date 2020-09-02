@@ -21,20 +21,21 @@ Steps to reproduce the behavior:
 <!-- A clear and concise description of what you expected to happen. -->
 
 **Log**
-<!-- Link to the pastebin where the log is. -->
+<!-- Upload the log has a txt file. -->
 
 **Script**
-<!-- Link to pastebin of build file if used. -->
+<!-- Upload the build file has a txt file, if used. -->
 <!-- If a build file was not used paste the compiler/run command here. -->
-<!-- Link to pastebin of script file(s). -->
+<!-- Upload the script file(s) has txt file(s). -->
 
-**Desktop (please complete the following information):**
+**Details:**
+<!-- Your issue will be closed if any of these fields are left empty. -->
  - OS: 
  - OS Version: 
  - Java Version: 
  - Gradle Version: 
  - Running Environment: <!-- EX: gradle, idea, eclipse -->
- - Args used: 
+ - Args used: NONE
 
 **Additional context**
 <!-- Add any other context about the problem here. -->
