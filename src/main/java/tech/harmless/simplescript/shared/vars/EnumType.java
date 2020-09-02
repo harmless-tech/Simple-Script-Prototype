@@ -5,7 +5,7 @@ public enum EnumType {
     STRING, // Default: ""
 
     INT8, // Default: 0
-    //INT16, Default: 0, TODO Not a standard java type have to add later.
+    //INT16, Default: 0, TODO Not a standard java type. Custom implementation needed.
     INT32, // Default: 0, Alias: int
     INT64, // Default: 0
 

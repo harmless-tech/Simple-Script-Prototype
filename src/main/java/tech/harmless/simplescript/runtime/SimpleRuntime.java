@@ -1,17 +1,14 @@
 package tech.harmless.simplescript.runtime;
 
-import tech.harmless.simplescript.misc.Triplet;
-import tech.harmless.simplescript.misc.Tuple;
 import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
 import tech.harmless.simplescript.shared.vars.AllocVar;
 import tech.harmless.simplescript.shared.vars.EnumType;
+import tech.harmless.simplescript.utils.Triplet;
+import tech.harmless.simplescript.utils.Tuple;
 
-/*
- * return info is through the return var, since it is special.
- */
 public class SimpleRuntime {
 
     private final CompiledScript script;
@@ -38,18 +35,18 @@ public class SimpleRuntime {
                 Instruction in = cFrame.nextInstruction();
                 switch(in.getInstruction()) {
                     default -> {
-                        assert(false) : "Unsupported instruction.";
+                        assert (false) : "Unsupported instruction.";
                     }
                     case ALLOC_VAR -> {
                         System.out.println("ALLOC_VAR");
 
-                         Triplet<String, EnumType, Object> data = (Triplet<String, EnumType, Object>) in.getData();
+                        Triplet<String, EnumType, Object> data = (Triplet<String, EnumType, Object>) in.getData();
                         cFrame.allocVar(data.x, new AllocVar(data.y, data.z));
                     }
                     case SET_VAR -> {
                         System.out.println("SET_VAR");
 
-                        Tuple<String, Object> data = (Tuple<String, Object>) in.getData();
+                        Tuple<String, Object> data = (Tuple<String, Object>) in.getData(); //TODO Nicer way to cast?
                         script.setVar(data.x, data.y);
                     }
                     case GET_VAR -> {
@@ -70,11 +67,13 @@ public class SimpleRuntime {
 
                         // A var called return should be allocated before the return.
                         //TODO Don't assume all methods are void.
-                        assert(cFrame.returnType == EnumType.VOID);
+                        assert (cFrame.returnType == EnumType.VOID);
+
+                        //TODO Change return var to return cache/register.
 
                         // Check for return var
                         AllocVar var = script.getVar("return"); //TODO Do something with this???
-                        script.discardCurrentFrame();
+                        script.discardCurrentFrame(); //TODO Account for bool.
                         cFrame = null;
                     }
                     case CREATE_SCOPE -> {
@@ -87,14 +86,14 @@ public class SimpleRuntime {
                         System.out.println("END_SCOPE");
 
                         //TODO This needs to change for scoped var dec.
-                        assert(cFrame.returnType == EnumType.VOID);
+                        assert (cFrame.returnType == EnumType.VOID);
 
-                        script.discardCurrentFrame();
+                        script.discardCurrentFrame(); //TODO Account for bool.
                     }
                 }
             }
 
-            assert(cFrame == null); // If this is not null, not all instructions were processed.
+            assert (cFrame == null); // If this is not null, not all instructions were processed in the frame.
         }
 
         running = false;

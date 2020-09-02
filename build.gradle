@@ -17,14 +17,27 @@ repositories {
 }
 
 dependencies {
+    //TODO Add testing, but it seems kinda broken in this version of gradle with modules.
 }
 
 application {
     mainModule = 'simplescript'
     mainClass = 'tech.harmless.simplescript.SimpleScript'
-    applicationDefaultJvmArgs = ['-Dfile.encoding=utf-8', '-ea']
+    applicationDefaultJvmArgs = ['-Dfile.encoding=utf-8']
 }
 
+task debug {
+    group = 'application'
+    description = 'Runs the program with assertions.'
+
+    doLast {
+        application.applicationDefaultJvmArgs.asList().add('-ea')
+    }
+
+    finalizedBy 'run'
+}
+
+//TODO Is this needed any more?
 /*jar {
     manifest {
         attributes 'Main-Class': 'tech.harmless.simplescript.SimpleScript'

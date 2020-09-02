@@ -8,20 +8,25 @@ import tech.harmless.simplescript.systemlib.SimpleLib;
 import java.util.Arrays;
 import java.util.Date;
 
-//TODO Rewrite in rust.
+//TODO Rewrite in a lower level language.
+//TODO Add tests.
 public class SimpleScript {
 
-    public static String FLAG_NAME = "Default";
-    public static boolean FLAG_DEBUG = true;
+    private static SimpleScript INSTANCE; // Class instance for allowing access to flags.
 
-    private static final String DEFAULT_BUILD_FILE = "build.simplebuild";
+    //TODO Figure out flags and defaults.
+    public final String FLAG_NAME = "Default"; //TODO Init in constructor.
+    public final boolean FLAG_DEBUG = true; //TODO Init in constructor.
 
+    private final String DEFAULT_BUILD_FILE = "build.simplebuild";
+
+    //TODO Needs a major rewrite.
     public SimpleScript(String[] args) {
         System.out.println("Simple Script started at " + new Date());
         System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better.");
         System.out.println("Args: " + Arrays.toString(args));
 
-        //TODO Redo to include args.
+        //TODO Redo to include args and make dynamic.
         System.out.println("All args are ignored for now!");
 
         SimpleLib.run("println", "Hello! I'm the lib");
@@ -32,7 +37,11 @@ public class SimpleScript {
         new SimpleRuntime(script).run();
     }
 
+    public static SimpleScript getInstance() {
+        return INSTANCE;
+    }
+
     public static void main(String[] args) {
-        new SimpleScript(args);
+        INSTANCE = new SimpleScript(args);
     }
 }

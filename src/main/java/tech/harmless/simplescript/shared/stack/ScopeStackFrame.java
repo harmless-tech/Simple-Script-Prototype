@@ -8,7 +8,14 @@ public class ScopeStackFrame extends StackFrame {
     private final StackFrame parent;
 
     public ScopeStackFrame(StackFrame parent) {
-        super(EnumType.VOID); //TODO This needs to change for scoped var dec.
+        /*
+         * TODO This needs to change for scoped var dec.
+         *
+         * int x = {
+         *    return 0;
+         * };
+         */
+        super(EnumType.VOID);
 
         this.parent = parent;
     }

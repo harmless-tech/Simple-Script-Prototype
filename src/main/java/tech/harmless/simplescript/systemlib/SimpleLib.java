@@ -43,6 +43,7 @@ public class SimpleLib {
         //TODO More later.
     }
 
+    //TODO Allow for ending of the runtime.
     private void exit(int code) {
         throw new UnsupportedOperationException();
     }

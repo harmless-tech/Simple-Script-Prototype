@@ -10,7 +10,7 @@ public enum EnumInstruction {
     CREATE_SCOPE, // NULL
     END_SCOPE, // NULL
 
-    CALL_SYSTEM
+    CALL_SYSTEM_LIB
 
     //TODO Merge METHOD and SCOPE calls.
 }

@@ -1,14 +1,12 @@
 package tech.harmless.simplescript.compiler;
 
-import tech.harmless.simplescript.SimpleScript;
-import tech.harmless.simplescript.misc.Triplet;
-import tech.harmless.simplescript.misc.Tuple;
 import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.shared.instructions.EnumInstruction;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
-import tech.harmless.simplescript.shared.stack.StackFrame;
 import tech.harmless.simplescript.shared.vars.EnumType;
+import tech.harmless.simplescript.utils.Triplet;
+import tech.harmless.simplescript.utils.Tuple;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -18,8 +16,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+//TODO This file needs a huge refactor.
 public class SimpleCompiler {
-    /*
+    /* !!! This is just a random list and is not how the compiler is planned to work !!!
      * LINE PRE-PROCESS
      * Take in a line.
      * Check it for a // comment. Remove the // comment and everything after it.
@@ -52,20 +51,22 @@ public class SimpleCompiler {
      * All file data on one line.
      */
 
-    private static final Set<String> reservedWords = new HashSet<>(); //TODO Use this!
-    private static final HashMap<String, String> tagMap = new HashMap<>();
+    private static final Set<String> reservedWords = new HashSet<>(); //TODO Use this when compiling!
+    private static final Map<String, String> tagMap = new HashMap<>();
 
     static {
+        //TODO Better way to put these into the set.
+
         // reservedWords
         reservedWords.add("if");
         reservedWords.add("if else");
         reservedWords.add("else");
         reservedWords.add("for");
         reservedWords.add("while");
-        reservedWords.add("return");
         reservedWords.add("switch");
         reservedWords.add("case");
         reservedWords.add("break");
+        reservedWords.add("return");
 
         reservedWords.add("import");
         reservedWords.add("static");
@@ -99,7 +100,7 @@ public class SimpleCompiler {
     }
 
     public static CompiledScript compile(String entryFile) { //TODO Check for directory info.
-        String eFile = importFile(entryFile);
+        String eFile = importFile(entryFile); //TODO This needs to change.
         eFile = removeCommentsAndEmpty(eFile);
         eFile = replacePreTags(eFile);
         eFile = oneLine(eFile);
@@ -207,8 +208,9 @@ public class SimpleCompiler {
         //TODO Add a lot of missing features.
         //TODO Compile automatically, not by hand.
 
-        // void main() {{}{{meme();}}meme();}void meme() {{}}
         //TODO Remove!
+
+        // void main() {{}{{meme();}}meme();}void meme() {{}}
         Map<String, MethodStackFrame> methods = new HashMap<>();
 
         // Frame: main
@@ -240,9 +242,9 @@ public class SimpleCompiler {
             MethodStackFrame msf = new MethodStackFrame(ins, EnumType.VOID);
             methods.put("Entry3.meme", msf);
         }
+
         // Remove!
 
-        //CompiledScript script = new CompiledScript();
         return new CompiledScript("Entry3.main", methods);
     }
 

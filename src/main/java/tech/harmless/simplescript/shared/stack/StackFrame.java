@@ -7,13 +7,15 @@ import tech.harmless.simplescript.shared.vars.EnumType;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO Merge of method frame and scope frame?
 public abstract class StackFrame {
 
     public final EnumType returnType;
 
     private final Map<String, AllocVar> allocatedVars;
 
-    // public final boolean method
+    //TODO This will be needs for a merge of the method and scope instructions.
+    // public final boolean methodStackFrame
 
     public StackFrame(EnumType returnType) {
         allocatedVars = new HashMap<>();
@@ -26,11 +28,11 @@ public abstract class StackFrame {
     public abstract Instruction nextInstruction();
 
     public void allocVar(String name, AllocVar var) {
-        assert(!allocatedVars.containsKey(name));
+        assert !allocatedVars.containsKey(name);
         allocatedVars.put(name, var);
     }
 
     public AllocVar getVar(String name) {
-        return allocatedVars.get(name); // This is allowed to be null.
+        return allocatedVars.get(name); // This is allowed to be null, since CompiledScript checks it.
     }
 }

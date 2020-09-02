@@ -16,17 +16,18 @@ public class CompiledScript {
     private final List<StackFrame> frames;
     private int currentFrame;
 
-    //TODO Refactor to allow for globals!
+    //TODO Refactor to allow for global vars!
+    //TODO Possible refactor of var passing!
     public CompiledScript(String entryMethod /* EntryClassName.MethodName */, Map<String, MethodStackFrame> methods) {
         this.methods = methods;
 
         frames = new ArrayList<>();
         currentFrame = 0;
 
-        assert(methods.containsKey(entryMethod));
+        assert methods.containsKey(entryMethod);
         frames.add(methods.get(entryMethod));
 
-        assert(frames.size() >= 1);
+        assert frames.size() >= 1;
     }
 
     public boolean hasNexFrame() {
@@ -34,26 +35,26 @@ public class CompiledScript {
     }
 
     public int currentFrameIndex() {
-        assert(currentFrame >= 0);
+        assert currentFrame >= 0;
 
         return currentFrame;
     }
 
     public StackFrame getCurrentFrame() {
-        assert(currentFrame >= 0);
+        assert currentFrame >= 0;
 
         return frames.get(currentFrame);
     }
 
     public void pushFrame(String methodName) {
-        assert(methods.containsKey(methodName));
+        assert methods.containsKey(methodName);
 
         frames.add(new MethodStackFrame((MethodStackFrame) methods.get(methodName)));
         currentFrame++;
     }
 
     public void pushFrame(ScopeStackFrame ssf) {
-        assert(ssf != null);
+        assert ssf != null;
 
         frames.add(ssf);
         currentFrame++;
@@ -61,6 +62,7 @@ public class CompiledScript {
 
     /**
      * Discards the current frame.
+     *
      * @return {@code true} if the program is out of frames.
      */
     public boolean discardCurrentFrame() {
@@ -71,7 +73,7 @@ public class CompiledScript {
     }
 
     public void setVar(String name, Object data) {
-        assert(data != null);
+        assert data != null;
 
         AllocVar var = getVar(name);
         var.setValue(data);
@@ -87,7 +89,7 @@ public class CompiledScript {
                 break;
         }
 
-        assert(var != null);
+        assert var != null;
         return var;
     }
 }

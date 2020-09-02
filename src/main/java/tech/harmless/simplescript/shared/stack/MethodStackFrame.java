@@ -22,8 +22,10 @@ public class MethodStackFrame extends StackFrame {
         currentPos = 0;
     }
 
+    @SuppressWarnings("CopyConstructorMissesField")
     public MethodStackFrame(MethodStackFrame sf) {
-        this(sf.instructions.toArray(new Instruction[sf.instructions.size()]), sf.returnType);
+        //TODO Is this 0 array allowed??
+        this(sf.instructions.toArray(new Instruction[0]), sf.returnType);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class MethodStackFrame extends StackFrame {
     public Instruction nextInstruction() {
         Instruction in = instructions.get(currentPos);
         currentPos++;
-        assert(in != null);
+        assert in != null;
 
         return in;
     }

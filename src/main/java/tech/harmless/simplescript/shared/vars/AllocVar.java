@@ -11,7 +11,7 @@ public class AllocVar {
     }
 
     public void setValue(Object value) {
-        assert(value != null);
+        assert value != null;
 
         this.value = value;
     }
