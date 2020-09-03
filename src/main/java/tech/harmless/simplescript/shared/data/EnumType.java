@@ -1,4 +1,4 @@
-package tech.harmless.simplescript.shared.vars;
+package tech.harmless.simplescript.shared.data;
 
 public enum EnumType {
     CHAR, // Default: '0'

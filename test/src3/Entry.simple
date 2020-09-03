@@ -1,4 +1,4 @@
-#tag SYSTEM_LIB
+#SYSTEM_LIB()
 import prints/Print.simple;
 import BasicCompare.simple;
 import BasicMath.simple;
@@ -7,9 +7,7 @@ import BasicLogic.simple;
 static final boolean DEBUG = false;
 static int counter; // 0
 
-#tag ENTRY {
-	#tag ENTRY_STRING
-	
+#ENTRY() {
 	Print.println(ENTRY_STRING);
 
 	Print.println(counter);
@@ -17,4 +15,10 @@ static int counter; // 0
 	counter += 1;
 	counter++;
 	Print.println(counter);
+	
+	// Exit program.
+}
+
+void end() {
+	#EXIT(-5)
 }

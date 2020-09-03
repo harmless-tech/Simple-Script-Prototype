@@ -1,4 +1,4 @@
-package tech.harmless.simplescript.shared.data;
+package tech.harmless.simplescript.shared.types;
 
 // Assignment operations will be compiled down to these operations.
 public enum EnumArithmeticOperation {

@@ -1,4 +1,4 @@
-package tech.harmless.simplescript.shared.data;
+package tech.harmless.simplescript.shared.types;
 
 //TODO Conditional operation is the same has an if/else statement.
 public enum EnumRelationalOperation {

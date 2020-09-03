@@ -1,4 +1,4 @@
-package tech.harmless.simplescript.utils;
+package tech.harmless.simplescript.shared.utils;
 
 //TODO Move to shared??
 /**

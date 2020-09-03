@@ -1,15 +1,16 @@
 package tech.harmless.simplescript.runtime;
 
 import tech.harmless.simplescript.shared.CompiledScript;
-import tech.harmless.simplescript.shared.data.RegisterType;
+import tech.harmless.simplescript.shared.types.RegisterType;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
-import tech.harmless.simplescript.shared.vars.TypedData;
-import tech.harmless.simplescript.shared.vars.EnumType;
-import tech.harmless.simplescript.utils.Triplet;
-import tech.harmless.simplescript.utils.Tuple;
+import tech.harmless.simplescript.shared.data.TypedData;
+import tech.harmless.simplescript.shared.data.EnumType;
+import tech.harmless.simplescript.shared.utils.Triplet;
+import tech.harmless.simplescript.shared.utils.Tuple;
 
+// At no time should there be instructions added during the runtime.
 public class SimpleRuntime {
 
     private final CompiledScript script;
@@ -135,6 +136,12 @@ public class SimpleRuntime {
 
                     // System Instructions
                     //TODO Implement.
+                    case CALL_SYSTEM_LIB -> {
+                        assert false;
+                    }
+                    case EXIT -> {
+                        //register.setReg(RegisterType.EXIT_CODE);
+                    }
                 }
             }
 

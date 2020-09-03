@@ -1,4 +1,4 @@
-#tag SYSTEM_LIB
+#SYSTEM_LIB()
 
 boolean not(boolean a) {
 	return !a;

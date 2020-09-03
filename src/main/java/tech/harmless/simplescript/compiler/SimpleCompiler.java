@@ -4,8 +4,8 @@ import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.shared.instructions.EnumInstruction;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
-import tech.harmless.simplescript.shared.vars.EnumType;
-import tech.harmless.simplescript.utils.Triplet;
+import tech.harmless.simplescript.shared.data.EnumType;
+import tech.harmless.simplescript.shared.utils.Triplet;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -92,7 +92,7 @@ public class SimpleCompiler {
         // tagMap
         tagMap.put("SYSTEM_LIB", "import System.simple;");
         tagMap.put("ENTRY", "void main()");
-        tagMap.put("ENTRY_STRING", "string ENTRY_STRING = \"Not Yet Supported!\";");
+        //tagMap.put("ENTRY_STRING", "string ENTRY_STRING = \"Not Yet Supported!\";"); TODO Maybe.
         tagMap.put("FAIL", "throw \"Failed!\";");
     }
 
@@ -107,7 +107,7 @@ public class SimpleCompiler {
         String eFile = importFile(entryFile); //TODO This needs to change.
         eFile = removeCommentsAndEmpty(eFile);
         eFile = replacePreTags(eFile);
-        eFile = oneLine(eFile);
+        eFile = oneLineReduceSpaces(eFile);
 
         System.out.println("Hello!\n" + eFile);
 
@@ -174,6 +174,7 @@ public class SimpleCompiler {
         return reconstruct.toString();
     }
 
+    //TODO Rework for new tag style.
     private static String replacePreTags(String file) {
         /* TAGS:
          * SYSTEM_LIB
@@ -198,7 +199,7 @@ public class SimpleCompiler {
     }
 
     //TODO This should also remove unnecessary spaces.
-    private static String oneLine(String file) {
+    private static String oneLineReduceSpaces(String file) {
         StringBuilder one = new StringBuilder();
 
         String[] lines = file.split("\n");

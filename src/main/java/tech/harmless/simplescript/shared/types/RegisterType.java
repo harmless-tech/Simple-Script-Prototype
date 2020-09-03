@@ -1,4 +1,4 @@
-package tech.harmless.simplescript.shared.data;
+package tech.harmless.simplescript.shared.types;
 
 public final class RegisterType {
 

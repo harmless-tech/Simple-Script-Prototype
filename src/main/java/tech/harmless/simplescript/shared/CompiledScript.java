@@ -3,7 +3,7 @@ package tech.harmless.simplescript.shared;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
-import tech.harmless.simplescript.shared.vars.TypedData;
+import tech.harmless.simplescript.shared.data.TypedData;
 
 import java.util.ArrayList;
 import java.util.List;

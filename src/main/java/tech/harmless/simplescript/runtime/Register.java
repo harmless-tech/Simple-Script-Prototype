@@ -1,6 +1,6 @@
 package tech.harmless.simplescript.runtime;
 
-import tech.harmless.simplescript.shared.vars.TypedData;
+import tech.harmless.simplescript.shared.data.TypedData;
 
 //TODO Register should only hold data for one loop. Add this check?
 public class Register {

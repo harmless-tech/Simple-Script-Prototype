@@ -3,7 +3,7 @@ package tech.harmless.simplescript;
 import tech.harmless.simplescript.compiler.SimpleCompiler;
 import tech.harmless.simplescript.runtime.SimpleRuntime;
 import tech.harmless.simplescript.shared.CompiledScript;
-import tech.harmless.simplescript.systemlib.SimpleLib;
+import tech.harmless.simplescript.runtime.systemlib.SimpleLib;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -27,8 +27,8 @@ public class SimpleScript {
 		// --unsafe, --entryfile, --out, 
 		
         System.out.println("Simple Script started at " + new Date());
-        System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better.");
         System.out.println("Args: " + Arrays.toString(args));
+        //System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better."); TODO Move to compiler.
 
         //TODO Redo to include args and make dynamic.
         System.out.println("All args are ignored for now!");

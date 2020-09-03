@@ -1,7 +1,7 @@
 package tech.harmless.simplescript.shared.stack;
 
 import tech.harmless.simplescript.shared.instructions.Instruction;
-import tech.harmless.simplescript.shared.vars.EnumType;
+import tech.harmless.simplescript.shared.data.EnumType;
 
 public class ScopeStackFrame extends StackFrame {
 

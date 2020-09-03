@@ -1,4 +1,4 @@
-package tech.harmless.simplescript.shared.data;
+package tech.harmless.simplescript.shared.types;
 
 //TODO Bitwise??
 //TODO Short Circuiting??
