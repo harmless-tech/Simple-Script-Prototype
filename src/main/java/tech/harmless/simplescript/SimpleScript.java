@@ -1,7 +1,5 @@
 package tech.harmless.simplescript;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import tech.harmless.simplescript.compiler.SimpleCompiler;
 import tech.harmless.simplescript.runtime.SimpleRuntime;
 import tech.harmless.simplescript.shared.CompiledScript;
@@ -15,7 +13,7 @@ import java.util.Date;
 public class SimpleScript {
 
     private static SimpleScript INSTANCE; // Class instance for allowing access to flags.
-    private final Logger logger = LoggerFactory.getLogger(getClass()); //TODO Custom logging format.
+    //TODO Add log4j and format it.
 
     //TODO Figure out flags and defaults.
     public final String FLAG_NAME = "Default"; //TODO Init in constructor.
