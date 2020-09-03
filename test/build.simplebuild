@@ -2,7 +2,7 @@
 Test Scripts
 
 [Out]
-test-bin.csimple
+test-bin.simplebin
 
 [Source]
 src
@@ -10,6 +10,6 @@ src
 [Entry]
 Entry.simple
 
-[Files]
-Entry.simple
-Basic.simple
+# I'm a comment.
+# The Entry file does not need to have a main method if you are interfacing with the runtime.
+# Files that connect back to the Entry file are automatically included and compiled.

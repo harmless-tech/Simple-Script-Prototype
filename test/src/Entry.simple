@@ -1,12 +1,6 @@
 #tag SYSTEM_LIB // Not really needed, system lib is always included.
-// #tag STRICT // Checks if methods, vars, and special statements are valid.
-// #tag LOOSE Doesn't care, try's to compile no matter what.
-
-// Probably not going to use these tags.
-// #tag INCLUDE Includes other file in this file and compiles. 
-// #tag LINK Links the compiled other file to this file.
-//import Basic.simple;
-//import okay/RealBasic.simple
+import Basic.simple;
+import okay/RealBasic.simple
 
 // Comment
 // Order of methods should not matter.
@@ -21,6 +15,9 @@ final static string QW = "20";
 
 // Not valid, finals cannot be from a method.
 // final static int TEST_ADD = Basic.add(2, 3);
+
+// Threading: This is going to be a single threaded language. (Maybe later it will change)
+// All methods must be defined. No lamdas.
 
 #tag ENTRY { // #tag Entry == void main()
     /*int keke = 23;
@@ -43,18 +40,26 @@ final static string QW = "20";
 	
 	int 11 = 2 % 2 * 2 / 2 + 2 - 2;
 	
-	// Do I really want this??
-	//int ted = {
-	//	return 0;
-	//};
+	int ted = { // Scopes can return a type.
+		return 0;
+	};
 	
 	assert(true);
 	
 	Basic.killer;
 	
+	final int kwkw = {}; // Only way to make a final array.
+	
 	float f = (float) "2.0";
-	float[] arr = new float[2];
+	float[] arr = new float[2]; // Can arrays be final??? How should they be final.
+	arr[0] = 0.0;
+	arr[1] = f;
+	
 	float[] arr2 = { 2, 2 };
+	
+	// Matrix
+	int[][] mat = new int[1][1];
+	mat[0][0] = 64;
 	
 	(float, int) tup = (2, 2);
 	
@@ -63,6 +68,15 @@ final static string QW = "20";
 	int 23334; // This is valid and inits the var to 0.
 	
 	System.println(tween);
+	
+	if(1 == 1) {
+		System.println(true);
+	}
+	
+	if(1 != 1)
+		assert(false);
+	else
+		System.println(false);
 }
 
 void prims() {

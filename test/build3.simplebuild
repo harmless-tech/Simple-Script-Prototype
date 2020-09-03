@@ -1,0 +1,13 @@
+#TODO Milestone: Make this program compile and run!
+
+[Name]
+Test 3
+
+[Out]
+3.simplebin
+
+[Source]
+src3
+
+[Entry]
+Entry.simple

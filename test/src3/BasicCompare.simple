@@ -1,0 +1,29 @@
+#tag SYSTEM_LIB
+
+boolean equal(object a, object b) {
+	return a == b;
+}
+
+boolean notEqual(object a, object b) {
+	return a != b;
+}
+
+boolean greater(object a, object b) {
+	return a > b;
+}
+
+boolean less(object a, object b) {
+	return a < b;
+}
+
+boolean greaterEqual(object a, object b) {
+	return a >= b;
+}
+
+boolean lessEqual(object a, object b) {
+	return a <= b;
+}
+
+boolean testComplex(object a, object b, object c) {
+	return a >= b == c;
+}

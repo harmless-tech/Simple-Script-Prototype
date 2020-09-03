@@ -1,0 +1,5 @@
+#tag SYSTEM_LIB
+
+void println(object a) {
+	System.println(a);
+}

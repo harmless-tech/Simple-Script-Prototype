@@ -1,0 +1,21 @@
+#tag SYSTEM_LIB
+
+boolean not(boolean a) {
+	return !a;
+}
+
+boolean and(boolean a, boolean b) {
+	return a && b;
+}
+
+boolean or(boolean a, boolean b) {
+	return a || b;
+}
+
+boolean xor(boolean a, boolean b) {
+	return a ^ b;
+}
+
+boolean complexTest(boolean a, boolean b, boolean c) {
+	return a || b && !c;
+}

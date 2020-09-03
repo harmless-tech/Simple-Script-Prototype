@@ -1,0 +1,33 @@
+#tag SYSTEM_LIB
+
+import prints/Print.simple;
+
+object add(object a, object b) {
+	Print.println(type(a)); // Type is == string.
+
+	return a + b;
+}
+
+object subtract(object a, object b) {
+	return a - b;
+}
+
+object mul(object a, object b) {
+	return a * b;
+}
+
+object divide(object a, object b) {
+	return a / b;
+}
+
+int mod(int a, int b) { // Modulus can only use int for now.
+	return a % b; // Modulus always returns a int.
+}
+
+object neg(object a) {
+	return -a;
+}
+
+int testComplex(int a) {
+	return (a + a) + a * a;
+}

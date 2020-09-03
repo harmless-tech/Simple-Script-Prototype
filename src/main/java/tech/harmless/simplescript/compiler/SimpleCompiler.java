@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+//TODO For right now the compiler will be very unsafe.
 //TODO This file needs a huge refactor.
 //TODO The compiler needs to be caught up the runtime.
 public class SimpleCompiler {
@@ -72,6 +73,7 @@ public class SimpleCompiler {
         reservedWords.add("static");
         reservedWords.add("final");
 
+        reservedWords.add("type"); // Ids the type.
         reservedWords.add("void");
         reservedWords.add("object");
         reservedWords.add("boolean");
@@ -100,6 +102,8 @@ public class SimpleCompiler {
     }
 
     public static CompiledScript compile(String entryFile) { //TODO Check for directory info.
+		System.out.println("Warning! The compiler does not do any safety checks currently.");
+	
         String eFile = importFile(entryFile); //TODO This needs to change.
         eFile = removeCommentsAndEmpty(eFile);
         eFile = replacePreTags(eFile);

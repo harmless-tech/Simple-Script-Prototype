@@ -22,6 +22,7 @@ TODO Add url to language spec.
 - Array and Tuple type implementation.
 - Start working on the compiler.
 - Develop system lib.
+- Allow for the runtime to be integrated.
 - Add more comments.
 - Remove the use of asserts for production code.
 - Allow for low level libs.

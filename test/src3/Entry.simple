@@ -1,0 +1,20 @@
+#tag SYSTEM_LIB
+import prints/Print.simple;
+import BasicCompare.simple;
+import BasicMath.simple;
+import BasicLogic.simple;
+
+static final boolean DEBUG = false;
+static int counter; // 0
+
+#tag ENTRY {
+	#tag ENTRY_STRING
+	
+	Print.println(ENTRY_STRING);
+
+	Print.println(counter);
+	counter = counter + 1; // These should all compile to the same instructions.
+	counter += 1;
+	counter++;
+	Print.println(counter);
+}
