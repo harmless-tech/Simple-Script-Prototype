@@ -3,7 +3,7 @@ package tech.harmless.simplescript.shared;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
-import tech.harmless.simplescript.shared.vars.AllocVar;
+import tech.harmless.simplescript.shared.vars.TypedData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,12 +75,12 @@ public class CompiledScript {
     public void setVar(String name, Object data) {
         assert data != null;
 
-        AllocVar var = getVar(name);
+        TypedData var = getVar(name);
         var.setValue(data);
     }
 
-    public AllocVar getVar(String name) {
-        AllocVar var = null;
+    public TypedData getVar(String name) {
+        TypedData var = null;
 
         for(int i = frames.size() - 1; i >= 0; i--) {
             var = frames.get(i).getVar(name);

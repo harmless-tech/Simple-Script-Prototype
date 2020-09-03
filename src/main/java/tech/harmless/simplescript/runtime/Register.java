@@ -1,31 +1,31 @@
 package tech.harmless.simplescript.runtime;
 
+import tech.harmless.simplescript.shared.vars.TypedData;
+
 //TODO Register should only hold data for one loop. Add this check?
-//TODO Can registers be null??
 public class Register {
 
-    private final Object[] register;
+    // Be aware that multiple register types might share the same register location.
+    private final TypedData[] register;
 
     public Register() {
-        register = new Object[5];
+        register = new TypedData[3];
     }
 
-    public void setReg(int reg, Object data) {
+    public void setReg(int reg, TypedData data) {
         assert data != null;
         assert register[reg] == null;
 
         register[reg] = data;
     }
 
-    public Object getRegObj(int reg) {
-        Object obj = register[reg];
+    //TODO Redo!
+    public TypedData getReg(int reg) {
+        TypedData regVar = register[reg];
         register[reg] = null; // Once used the data in the register expires.
 
-        assert obj != null; // When a register is accessed it should never be null.
-        return obj;
-    }
-
-    public <T> T getReg(int reg) {
-        return getReg(reg);
+        assert regVar != null; // When a register is accessed it should never be null.
+        assert register[reg] == null; //TODO Remove!!!
+        return regVar;
     }
 }

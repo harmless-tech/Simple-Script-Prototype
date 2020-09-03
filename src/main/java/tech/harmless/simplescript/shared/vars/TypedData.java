@@ -1,11 +1,11 @@
 package tech.harmless.simplescript.shared.vars;
 
-public class AllocVar {
+public class TypedData {
 
     private final EnumType type;
     private Object value;
 
-    public AllocVar(EnumType type, Object value) {
+    public TypedData(EnumType type, Object value) {
         this.type = type;
         this.value = value;
     }

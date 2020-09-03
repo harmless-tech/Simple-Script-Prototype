@@ -1,10 +1,11 @@
 package tech.harmless.simplescript.runtime;
 
 import tech.harmless.simplescript.shared.CompiledScript;
+import tech.harmless.simplescript.shared.data.RegisterType;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
-import tech.harmless.simplescript.shared.vars.AllocVar;
+import tech.harmless.simplescript.shared.vars.TypedData;
 import tech.harmless.simplescript.shared.vars.EnumType;
 import tech.harmless.simplescript.utils.Triplet;
 import tech.harmless.simplescript.utils.Tuple;
@@ -45,13 +46,21 @@ public class SimpleRuntime {
                         System.out.println("ALLOC_VAR");
 
                         Triplet<String, EnumType, Object> data = (Triplet<String, EnumType, Object>) in.getData();
-                        cFrame.allocVar(data.x, new AllocVar(data.y, data.z));
+                        cFrame.allocVar(data.x, new TypedData(data.y, data.z));
                     }
                     case SET_VAR -> {
                         System.out.println("SET_VAR");
 
-                        Tuple<String, Object> data = (Tuple<String, Object>) in.getData(); //TODO Nicer way to cast?
+                        Tuple<String, Object> data = (Tuple<String, Object>) in.getData();
                         script.setVar(data.x, data.y);
+                    }
+                    case SET_VAR_REG -> {
+                        System.out.println("SET_VAR_REG");
+
+                        String name = (String) in.getData();
+                        TypedData data = register.getReg(RegisterType.RETURN);
+
+                        script.setVar(name, data.getValue());
                     }
                     case GET_VAR -> {
                         System.out.println("GET_VAR");
@@ -85,6 +94,45 @@ public class SimpleRuntime {
                     }
 
                     // Register Instructions
+                    case LOAD_REG -> {
+                        System.out.println("LOAD_REG");
+
+                        Tuple<Integer, TypedData> data = (Tuple<Integer, TypedData>) in.getData();
+                        register.setReg(data.x, data.y);
+                    }
+                    case LOAD_REG_VAR -> {
+                        System.out.println("LOAD_REG_VAR");
+
+                        Tuple<Integer, String> data = (Tuple<Integer, String>) in.getData();
+                        TypedData varData = script.getVar(data.y);
+
+                        register.setReg(data.x, varData);
+                    }
+                    case TRANSFER_REG -> {
+                        System.out.println("TRANSFER_REG");
+
+                        Tuple<Integer, Integer> data = (Tuple<Integer, Integer>) in.getData();
+                        register.setReg(data.y, register.getReg(data.x));
+                    }
+
+                    // Operation Instructions
+                    //TODO Should edit the return register.
+                    case ARITHMETIC_OPERATION -> {
+                        assert false;
+                        //TODO Implement!
+                    }
+                    case COMPARE_OPERATION -> {
+                        assert false;
+                        //TODO Implement!
+                    }
+                    case LOGIC_OPERATION -> {
+                        assert false;
+                        //TODO Implement!
+                    }
+
+                    // Jumping Instructions
+
+                    // System Instructions
                 }
             }
 
