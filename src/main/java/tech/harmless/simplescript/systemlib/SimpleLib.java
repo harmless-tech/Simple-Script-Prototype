@@ -2,6 +2,7 @@ package tech.harmless.simplescript.systemlib;
 
 import java.lang.reflect.Method;
 
+//TODO Move to shared??
 public class SimpleLib {
 
     private static final SimpleLib SIMPLE_LIB = new SimpleLib();

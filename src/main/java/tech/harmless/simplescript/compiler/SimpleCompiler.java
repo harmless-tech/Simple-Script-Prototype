@@ -6,7 +6,6 @@ import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
 import tech.harmless.simplescript.shared.vars.EnumType;
 import tech.harmless.simplescript.utils.Triplet;
-import tech.harmless.simplescript.utils.Tuple;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -17,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 //TODO This file needs a huge refactor.
+//TODO The compiler needs to be caught up the runtime.
 public class SimpleCompiler {
     /* !!! This is just a random list and is not how the compiler is planned to work !!!
      * LINE PRE-PROCESS
@@ -193,6 +193,7 @@ public class SimpleCompiler {
         return reconstruct.toString();
     }
 
+    //TODO This should also remove unnecessary spaces.
     private static String oneLine(String file) {
         StringBuilder one = new StringBuilder();
 
@@ -216,16 +217,20 @@ public class SimpleCompiler {
         // Frame: main
         {
             Instruction[] ins = {
-                    new Instruction(EnumInstruction.CREATE_SCOPE, null),
-                    new Instruction(EnumInstruction.END_SCOPE, null),
-                    new Instruction(EnumInstruction.CREATE_SCOPE, null),
-                    new Instruction(EnumInstruction.CREATE_SCOPE, null),
-                    new Instruction(EnumInstruction.INVOKE_METHOD, new Tuple<>("Entry3.meme", new Object[0])),
-                    new Instruction(EnumInstruction.END_SCOPE, null),
-                    new Instruction(EnumInstruction.END_SCOPE, null),
-                    new Instruction(EnumInstruction.INVOKE_METHOD, new Tuple<>("Entry3.meme", new Object[0])),
-                    new Instruction(EnumInstruction.ALLOC_VAR, new Triplet<>("return", EnumType.VOID, null)),
-                    new Instruction(EnumInstruction.RETURN_METHOD, null)
+                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
+                    new Instruction(EnumInstruction.DISCARD_FRAME, null),
+                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
+                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
+                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, "Entry3.meme", null /* Can this be null? */)),
+                    new Instruction(EnumInstruction.DISCARD_FRAME, null),
+                    new Instruction(EnumInstruction.DISCARD_FRAME, null),
+                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, "Entry3.meme", null /* Can this be null? */)),
+                    //new Instruction(EnumInstruction.LOAD_REG, new Tuple<>(RegisterType.RETURN, new TypedData(EnumType.VOID, null))),
+                    /* The return register should only be loaded when the data is going to be used.
+                    * int x = method(); YES
+                    * method(); NO
+                    */
+                    new Instruction(EnumInstruction.DISCARD_FRAME, null)
             };
             MethodStackFrame msf = new MethodStackFrame(ins, EnumType.VOID);
             methods.put("Entry3.main", msf);
@@ -234,10 +239,10 @@ public class SimpleCompiler {
         // Frame: meme
         {
             Instruction[] ins = {
-                    new Instruction(EnumInstruction.CREATE_SCOPE, null),
-                    new Instruction(EnumInstruction.END_SCOPE, null),
-                    new Instruction(EnumInstruction.ALLOC_VAR, new Triplet<>("return", EnumType.VOID, null)),
-                    new Instruction(EnumInstruction.RETURN_METHOD, null)
+                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
+                    new Instruction(EnumInstruction.DISCARD_FRAME, null),
+                    //new Instruction(EnumInstruction.LOAD_REG, new Tuple<>(RegisterType.RETURN, new TypedData(EnumType.VOID, null))),
+                    new Instruction(EnumInstruction.DISCARD_FRAME, null)
             };
             MethodStackFrame msf = new MethodStackFrame(ins, EnumType.VOID);
             methods.put("Entry3.meme", msf);

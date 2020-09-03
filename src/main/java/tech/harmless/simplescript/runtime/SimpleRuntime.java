@@ -131,8 +131,10 @@ public class SimpleRuntime {
                     }
 
                     // Jumping Instructions
+                    //TODO Implement.
 
                     // System Instructions
+                    //TODO Implement.
                 }
             }
 

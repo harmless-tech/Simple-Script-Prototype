@@ -7,9 +7,9 @@ public enum EnumInstruction {
     GET_VAR, // new String(NAME) EX: "hello" TODO Is this needed???
 
     CREATE_FRAME, // new Triplet<Boolean, String, Object[]>(IS_METHOD, METHOD_NAME, METHOD_ARGS);
-    DISCARD_FRAME, // NULL
+    DISCARD_FRAME, // NULL /* The return register should only be loaded if the frame returns a value. */
 
-    LOAD_REG, // new Tuple<Integer (RegisterType), AllocVar>(REG_TYPE, DATA); /* Loads data into a register. */
+    LOAD_REG, // new Tuple<Integer (RegisterType), TypedData>(REG_TYPE, DATA); /* Loads data into a register. */
     LOAD_REG_VAR, // new Tuple<Integer (RegisterType), String>(REG_TYPE, VAR_NAME); /* Loads a var into a register. */
     TRANSFER_REG, // new Tuple<Integer (RegisterType), Integer (RegisterType)>(ORIGINAL_REG, NEW_REG); /* Shifts data in one register into another register. */
 
@@ -22,5 +22,5 @@ public enum EnumInstruction {
     RETURN_JUMP, // NULL /* Returns to 1 + the instruction point before the jump. */
 
     CALL_SYSTEM_LIB, //TODO ...
-    EXIT // NULL /* An AllocVar should be loaded into the EXIT register. */
+    EXIT // NULL /* An TypedData should be loaded into the EXIT register. */
 }

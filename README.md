@@ -9,25 +9,22 @@ TODO Add url to language spec.
 - Only primitive data types and arrays.
 - No structs or objects.
 - Compile to a data structure that the runtime (vm) can run.
-- Include other files.
+- Ability to include other files.
 - Java-ish like syntax.
 - Allow for easy integration of the vm into other programs.
 - Minimal dependencies for the compiler and runtime.
 - Safety through the use of a compiler, and the ban on null values.
-- Security and safety of the vm/runtime.
+- Security and safety of the vm/runtime. (All vars should be has private and final has possible)
 
 ### Partial TODO
-- Merge of scope and method instructions.
+- Allow for operations. (Arithmetic, Relational, Logic)
 - Allow for control flow structures. (if, while, for)
-- Allow for math/
-- Compile a file to a list of instructions.
+- Array and Tuple type implementation.
+- Start working on the compiler.
 - Develop system lib.
-- Allow for low level libs.
-- Add a cache. (To allow for holding of data for other instructions)
 - Add more comments.
-- Allow for equations.
 - Remove the use of asserts for production code.
-- Array and Tuple type. 
+- Allow for low level libs.
 
 ### Running the code
 ##### Idea
@@ -45,4 +42,7 @@ TODO Add url to language spec.
 TODO Add instructions.
 
 ### Building
+###### Warning the build process is currently windows only!
+- Run ```gradlew jlink``` to build an application image.
+- Run ```gradlew jpack``` to build an installer.
 TODO Add.

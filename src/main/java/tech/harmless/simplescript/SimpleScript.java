@@ -25,8 +25,6 @@ public class SimpleScript {
 
     //TODO Needs a major rewrite.
     public SimpleScript(String[] args) {
-        logger.info("NEED A FIX!");
-
         System.out.println("Simple Script started at " + new Date());
         System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better.");
         System.out.println("Args: " + Arrays.toString(args));

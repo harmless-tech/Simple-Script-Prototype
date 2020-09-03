@@ -17,4 +17,7 @@ public enum EnumType {
 
     OBJECT, // Default: 0
     VOID // Default: "VOID", Only should be used for methods.
+
+    // TODO Possible do TUPLE type. data = new Tuple<TypedData, TypedData>();
+    // TODO Possible do ARRAY type. data = new Tuple<EnumType, Object[]>();
 }
