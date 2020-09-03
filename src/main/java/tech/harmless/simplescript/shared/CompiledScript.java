@@ -1,9 +1,12 @@
 package tech.harmless.simplescript.shared;
 
 import tech.harmless.simplescript.shared.data.TypedData;
+import tech.harmless.simplescript.shared.instructions.EnumInstruction;
+import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
+import tech.harmless.simplescript.shared.utils.Triplet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,18 +19,27 @@ public class CompiledScript {
     private final List<StackFrame> frames;
     private int currentFrame;
 
-    //TODO Refactor to allow for global vars!
     //TODO Possible refactor of var passing!
-    public CompiledScript(String entryMethod /* EntryClassName.MethodName */, Map<String, MethodStackFrame> methods) {
+    public CompiledScript(String entryMethod, Map<String, MethodStackFrame> methods, Map<String, TypedData> globals) {
         this.methods = methods;
+        assert methods.containsKey(entryMethod);
         //TODO Add in precompiled system lib.
 
         frames = new ArrayList<>();
         currentFrame = 0;
 
-        assert methods.containsKey(entryMethod);
-        frames.add(methods.get(entryMethod));
+        // Top level stack.
+        Instruction[] topIns = {
+                new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
+                new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, entryMethod, null)),
+                new Instruction(EnumInstruction.DISCARD_FRAME, null)
+        };
+        StackFrame topStack = new MethodStackFrame(topIns);
 
+        for(Map.Entry<String, TypedData> global : globals.entrySet())
+            topStack.allocVar(global.getKey(), global.getValue());
+
+        frames.add(topStack);
         assert frames.size() >= 1;
     }
 

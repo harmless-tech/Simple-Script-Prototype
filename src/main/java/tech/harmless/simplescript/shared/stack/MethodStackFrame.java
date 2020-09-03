@@ -13,8 +13,8 @@ public class MethodStackFrame extends StackFrame {
 
     private int currentPos;
 
-    public MethodStackFrame(Instruction[] instructions, EnumType returnType) {
-        super(returnType);
+    public MethodStackFrame(Instruction[] instructions) {
+        super();
 
         this.instructions = new ArrayList<>();
         this.instructions.addAll(Arrays.asList(instructions));
@@ -25,7 +25,7 @@ public class MethodStackFrame extends StackFrame {
     @SuppressWarnings("CopyConstructorMissesField")
     public MethodStackFrame(MethodStackFrame sf) {
         //TODO Is this 0 array allowed??
-        this(sf.instructions.toArray(new Instruction[0]), sf.returnType);
+        this(sf.instructions.toArray(new Instruction[0]));
     }
 
     @Override

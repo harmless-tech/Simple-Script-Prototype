@@ -10,17 +10,13 @@ import java.util.Map;
 //TODO Merge of method frame and scope frame?
 public abstract class StackFrame {
 
-    public final EnumType returnType;
-
     private final Map<String, TypedData> allocatedVars;
 
     //TODO This will be needs for a merge of the method and scope instructions.
     // public final boolean methodStackFrame
 
-    public StackFrame(EnumType returnType) {
+    public StackFrame() {
         allocatedVars = new HashMap<>();
-
-        this.returnType = returnType;
     }
 
     public abstract boolean hasInstruction();

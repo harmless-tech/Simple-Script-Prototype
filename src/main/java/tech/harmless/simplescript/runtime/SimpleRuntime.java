@@ -136,7 +136,6 @@ public class SimpleRuntime {
                     //TODO Implement.
 
                     // System Instructions
-                    //TODO Implement.
                     case CAST -> {
                         EnumType data = (EnumType) in.getData();
 

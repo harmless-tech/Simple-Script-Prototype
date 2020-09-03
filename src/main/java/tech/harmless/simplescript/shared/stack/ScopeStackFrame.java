@@ -15,7 +15,7 @@ public class ScopeStackFrame extends StackFrame {
          *    return 0;
          * };
          */
-        super(EnumType.VOID);
+        super();
 
         this.parent = parent;
     }

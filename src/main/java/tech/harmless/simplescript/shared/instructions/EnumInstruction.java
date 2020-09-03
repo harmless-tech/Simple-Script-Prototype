@@ -1,5 +1,6 @@
 package tech.harmless.simplescript.shared.instructions;
 
+//TODO NULL instructions can share a static instruction class.
 public enum EnumInstruction {
     ALLOC_VAR, // new Triplet<String, EnumType, Object>(NAME, TYPE, DEFAULT or DATA); EX: ("hello", EnumType.INT32, 0)
     SET_VAR, // new Tuple<String, Object>(NAME, DATA); EX: ("hello", 0)
@@ -19,6 +20,7 @@ public enum EnumInstruction {
     COMPARE_OPERATION, // EnumRelationalOperation /* Does a EnumRelationalOperation and puts the data into the return register. */
     LOGIC_OPERATION, // EnumLogicOperation /* Does a EnumLogicOperation and puts the data into the return register. */
 
+    //TODO
     JUMP, // new Integer(JUMP_POINT); /* Jumps to a point in the instructions. */ (Checks the return register. Loops use this.)
     RETURN_JUMP, // NULL /* Returns to 1 + the instruction point before the jump. */
 
