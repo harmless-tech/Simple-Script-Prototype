@@ -1,13 +1,11 @@
 plugins {
-    id 'java'
-    id 'idea'
-    id 'application'
-
-    //id 'com.github.johnrengelman.shadow' version '6.0.0'
+    id "java"
+    id "idea"
+    id "application"
 }
 
-group 'tech.harmless.simplescript'
-version '0.0.1-PROTOTYPE'
+group "tech.harmless.simplescript"
+version "0.0.1" // PROTOTYPE
 
 sourceCompatibility = 14
 targetCompatibility = 14
@@ -17,29 +15,70 @@ repositories {
 }
 
 dependencies {
+    implementation group: "org.slf4j", name: "slf4j-api", version: "1.7.30"
+
     //TODO Add testing, but it seems kinda broken in this version of gradle with modules.
 }
 
 application {
-    mainModule = 'simplescript'
-    mainClass = 'tech.harmless.simplescript.SimpleScript'
-    applicationDefaultJvmArgs = ['-Dfile.encoding=utf-8']
+    mainModule = "simplescript"
+    mainClass = "tech.harmless.simplescript.SimpleScript"
+    applicationDefaultJvmArgs = ["-Dfile.encoding=utf-8"]
 }
 
 task debug {
-    group = 'application'
-    description = 'Runs the program with assertions.'
+    group = "application"
+    description = "Runs the program with assertions."
 
     doLast {
-        application.applicationDefaultJvmArgs.asList().add('-ea')
+        application.applicationDefaultJvmArgs.asList().add("-ea")
     }
 
-    finalizedBy 'run'
+    finalizedBy "run"
 }
 
-//TODO Is this needed any more?
-/*jar {
-    manifest {
-        attributes 'Main-Class': 'tech.harmless.simplescript.SimpleScript'
-    }
-}*/
+task copyDependencies(type: Copy) {
+    from configurations.runtimeClasspath
+    into "$buildDir/jmods"
+}
+
+//TODO Make this run on other platforms.
+task jlink(type: Exec) {
+    dependsOn "clean"
+    dependsOn "jar"
+    dependsOn "copyDependencies"
+
+    workingDir "$buildDir"
+    //commandLine "cmd", "/c", "DIR"
+    commandLine "cmd", "/c", "jlink",
+            "--launcher", "simplelauncher=tech.harmless.simplescript/tech.harmless.simplescript.SimpleScript",
+            "--module-path", "\"%JAVA_HOME%/jmods/\";\"jmods/\";\"libs/\"",
+            "--add-modules", "tech.harmless.simplescript",
+            "--output", "appimage",
+            "--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"
+
+    //TODO App icon???
+}
+
+//TODO Make this run on other platforms.
+String pVersion = project.version
+task jpack(type: Exec) {
+    dependsOn "jlink"
+
+    workingDir "$buildDir"
+    commandLine "cmd", "/c", "jpackage",
+            "--type", "msi",
+            "--name", "\"SimpleScript\"",
+            "--app-version", "$pVersion",
+            "--dest", "$buildDir/installer",
+            "--copyright", "Copyright (c) 2020 Harmless_Tech under the MIT License",
+            "--runtime-image", "$buildDir/appimage",
+            "--vendor", "harmless.tech",
+            "--module", "tech.harmless.simplescript/tech.harmless.simplescript.SimpleScript",
+            "--module-path", "$buildDir/jmods",
+            "--java-options", "-Dfile.encoding=UTF-8",
+            "--win-menu",
+            "--win-dir-chooser"
+
+    //TODO App icon
+}

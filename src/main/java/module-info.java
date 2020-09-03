@@ -1,5 +1,2 @@
-module simplescript {
-    requires java.base;
-
-    //TODO Handle exports.
+module tech.harmless.simplescript {
 }
