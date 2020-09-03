@@ -12,12 +12,14 @@ import tech.harmless.simplescript.utils.Tuple;
 public class SimpleRuntime {
 
     private final CompiledScript script;
+    private final Register register;
 
     private boolean running;
 
     public SimpleRuntime(CompiledScript script) {
         this.script = script;
 
+        register = new Register();
         running = false;
     }
 
@@ -25,18 +27,20 @@ public class SimpleRuntime {
     public void run() {
         running = true;
 
-        //TODO Data Cache.
         while(running && script.hasNexFrame()) {
             // Get the current stack frame to process.
             StackFrame cFrame = script.getCurrentFrame();
-            //TODO One loop cache of data???
-            //TODO Add registers that store data.
+
             while(cFrame != null && cFrame.hasInstruction()) {
                 Instruction in = cFrame.nextInstruction();
+
+                //TODO Add more instructions.
                 switch(in.getInstruction()) {
                     default -> {
                         assert (false) : "Unsupported instruction.";
                     }
+
+                    // Var Instructions
                     case ALLOC_VAR -> {
                         System.out.println("ALLOC_VAR");
 
@@ -55,41 +59,32 @@ public class SimpleRuntime {
                         String data = (String) in.getData();
                         script.getVar(data); //TODO Where to put this???
                     }
-                    case INVOKE_METHOD -> {
-                        System.out.println("INVOKE_METHOD");
 
-                        Tuple<String, Object[]> data = (Tuple<String, Object[]>) in.getData();
-                        script.pushFrame(data.x); //TODO What to do with data???
+                    // Frame Instructions
+                    case CREATE_FRAME -> {
+                        System.out.println("CREATE_FRAME");
+
+                        Triplet<Boolean, String, Object[]> data = (Triplet<Boolean, String, Object[]>) in.getData();
+                        if(data.x) {
+                            //TODO Add entry args into stack frame vars.
+                            script.pushFrame(data.y);
+                        }
+                        else
+                            script.pushFrame(new ScopeStackFrame(cFrame));
+
                         cFrame = null;
                     }
-                    case RETURN_METHOD -> {
-                        System.out.println("RETURN_METHOD");
+                    case DISCARD_FRAME -> {
+                        System.out.println("DISCARD_FRAME");
 
-                        // A var called return should be allocated before the return.
-                        //TODO Don't assume all methods are void.
-                        assert (cFrame.returnType == EnumType.VOID);
+                        // The return register should have already been filled with data.
+                        //TODO Manually check return register.
 
-                        //TODO Change return var to return cache/register.
-
-                        // Check for return var
-                        AllocVar var = script.getVar("return"); //TODO Do something with this???
-                        script.discardCurrentFrame(); //TODO Account for bool.
+                        script.discardCurrentFrame();
                         cFrame = null;
                     }
-                    case CREATE_SCOPE -> {
-                        System.out.println("CREATE_SCOPE");
 
-                        script.pushFrame(new ScopeStackFrame(cFrame));
-                        cFrame = script.getCurrentFrame();
-                    }
-                    case END_SCOPE -> {
-                        System.out.println("END_SCOPE");
-
-                        //TODO This needs to change for scoped var dec.
-                        assert (cFrame.returnType == EnumType.VOID);
-
-                        script.discardCurrentFrame(); //TODO Account for bool.
-                    }
+                    // Register Instructions
                 }
             }
 

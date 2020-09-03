@@ -2,6 +2,9 @@
 This is a prototype for a scripting language that is compiled and uses a vm to run.
 This will eventually be rewritten in a lower level language like rust, c, or c++.
 
+### Language Spec
+TODO Add url to language spec.
+
 ### Goals
 - Only primitive data types and arrays.
 - No structs or objects.
@@ -14,7 +17,9 @@ This will eventually be rewritten in a lower level language like rust, c, or c++
 - Security and safety of the vm/runtime.
 
 ### Partial TODO
-- Allow for control flow structures.
+- Merge of scope and method instructions.
+- Allow for control flow structures. (if, while, for)
+- Allow for math/
 - Compile a file to a list of instructions.
 - Develop system lib.
 - Allow for low level libs.
@@ -22,6 +27,7 @@ This will eventually be rewritten in a lower level language like rust, c, or c++
 - Add more comments.
 - Allow for equations.
 - Remove the use of asserts for production code.
+- Array and Tuple type. 
 
 ### Running the code
 ##### Idea
