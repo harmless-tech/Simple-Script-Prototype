@@ -30,6 +30,7 @@ Steps to reproduce the behavior:
 
 **Details:**
 <!-- Your issue will be closed if any of these fields are left empty. -->
+- Commit Version/Release Version:
  - OS: 
  - OS Version: 
  - Java Version: 
