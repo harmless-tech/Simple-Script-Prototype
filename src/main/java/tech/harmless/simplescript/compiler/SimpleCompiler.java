@@ -14,7 +14,7 @@ import java.util.Set;
 //TODO For right now the compiler will be very unsafe.
 //TODO This file needs a huge refactor.
 //TODO The compiler needs to be caught up the runtime.
-public class SimpleCompiler {
+public class SimpleCompiler { // Compiler should "run" the program.
     /* !!! This is just a random list and is not how the compiler is planned to work !!!
      * LINE PRE-PROCESS
      * Take in a line.

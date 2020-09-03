@@ -17,16 +17,19 @@ TODO Add url to language spec.
 - Security and safety of the vm/runtime. (All vars should be has private and final has possible)
 
 ### Partial TODO
+- Compiler Rewrite.
 - Try to hit test/src3 milestone.
+
 - Allow for operations. (Arithmetic, Relational, Logic)
 - Allow for control flow structures. (if, while, for)
 - Array and Tuple type implementation.
 - Start working on the compiler.
 - Develop system lib.
-- Allow for the runtime to be integrated.
+- Allow for the runtime to be integrated into other apps.
 - Add more comments.
 - Remove the use of asserts for production code.
 - Allow for low level libs.
+- Compiler/Runtime arguments.
 
 ### Running the code
 ##### Idea
