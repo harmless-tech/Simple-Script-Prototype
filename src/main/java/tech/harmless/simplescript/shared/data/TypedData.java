@@ -2,7 +2,9 @@ package tech.harmless.simplescript.shared.data;
 
 public class TypedData {
 
-    private final EnumType type;
+    public static final TypedData VOID = new TypedData(EnumType.VOID, null);
+
+    private final EnumType type; //TODO Is this needed?
     private Object value;
 
     public TypedData(EnumType type, Object value) {

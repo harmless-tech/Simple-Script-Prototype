@@ -1,27 +1,30 @@
 package tech.harmless.simplescript.runtime.systemlib;
 
+import org.jetbrains.annotations.NotNull;
 import tech.harmless.simplescript.shared.data.EnumType;
+import tech.harmless.simplescript.shared.data.TypedData;
 
 import java.lang.reflect.Method;
 
 //TODO Move to shared or to runtime??
-public class SimpleLib {
+public class NativeLib {
 
-    private static final SimpleLib SIMPLE_LIB;
+    private static final NativeLib SIMPLE_LIB;
     private static final Method[] methods;
 
     //TODO Add a heap somewhere. Later though.
 
     static {
-        SIMPLE_LIB = new SimpleLib();
+        SIMPLE_LIB = new NativeLib();
 
         // Create an array of all possible methods.
-        Class<?> c = SimpleLib.class;
+        Class<?> c = NativeLib.class;
         methods = c.getDeclaredMethods();
     }
 
     // If the method is a void return type, then this method will return null.
-    public static Object run(String methodName, Object... args) {
+    @NotNull
+    public static TypedData run(String methodName, Object... args) {
         assert !methodName.equals("run");
         assert !methodName.equals("parseArg");
 
@@ -31,10 +34,10 @@ public class SimpleLib {
 
                 if(m.getName().equals(methodName)) {
                     assert args != null;
-                    Object obj = m.invoke(SIMPLE_LIB, args); //TODO Account for args.
+                    TypedData data = (TypedData) m.invoke(SIMPLE_LIB, args); //TODO Account for args.
 
-                    assert m.getReturnType().equals(Void.TYPE) == (obj == null);
-                    return obj;
+                    assert data != null;
+                    return data;
                 }
             }
         }
@@ -48,41 +51,38 @@ public class SimpleLib {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
-    private static <T> T parseArg(int pos, Object[] args) {
-        assert pos < 0 && pos > args.length;
-
-        return (T) args[pos];
-    }
-
-    private void println(Object print) {
+    private TypedData println(Object print) {
         System.out.println(print);
+        return TypedData.VOID;
         //TODO More later?
     }
 
-    private void print(Object print) {
+    private TypedData print(Object print) {
         System.out.print(print);
+        return TypedData.VOID;
         //TODO More later?
     }
 
-    private void exit(int code) {
+    private TypedData exit(int code) {
         //TODO Not super ideal.
         System.exit(code);
+        return TypedData.VOID;
     }
 
-    private long getMemoryInBytes() {
-        return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+    private TypedData getMemoryInBytes() {
+        long mem =  Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        return new TypedData(EnumType.INT64, mem);
     }
 
     // Returns a "pointer" to the list.
-    private long createList(EnumType type) {
+    private TypedData createList(EnumType type) {
         // Check for an EnumType.
         //TODO Implement.
-        return -1;
+        return new TypedData(EnumType.INT64, -1);
     }
 
-    private boolean addToList(long pointer, Object data) {
+    private TypedData addToList(long pointer, Object data) {
         //TODO Implement.
-        return false;
+        return new TypedData(EnumType.BOOLEAN, false);
     }
 }

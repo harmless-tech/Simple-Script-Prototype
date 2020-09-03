@@ -2,8 +2,8 @@ package tech.harmless.simplescript;
 
 import tech.harmless.simplescript.compiler.SimpleCompiler;
 import tech.harmless.simplescript.runtime.SimpleRuntime;
+import tech.harmless.simplescript.runtime.systemlib.NativeLib;
 import tech.harmless.simplescript.shared.CompiledScript;
-import tech.harmless.simplescript.runtime.systemlib.SimpleLib;
 import tech.harmless.simplescript.shared.data.EnumType;
 
 import java.util.Arrays;
@@ -36,10 +36,10 @@ public class SimpleScript {
         System.out.println("All args are ignored for now!");
 
         //TODO Remove lib test.
-        assert SimpleLib.run("println", "Hello! I'm the lib") == null;
-        assert ((long) SimpleLib.run("getMemoryInBytes")) == -2;
-        assert ((long) SimpleLib.run("createList", EnumType.INT32)) == -1;
-        assert !((boolean) SimpleLib.run("addToList", 10l, "ubivrgeu"));
+        assert NativeLib.run("println", "Hello! I'm the lib") == null;
+        assert ((long) NativeLib.run("getMemoryInBytes").getValue()) == -2;
+        assert ((long) NativeLib.run("createList", EnumType.INT32).getValue()) == -1;
+        assert !((boolean) NativeLib.run("addToList", 10l, "ubivrgeu").getValue());
         System.out.println();
 
         //SimpleCompiler.compile("Entry.simple");

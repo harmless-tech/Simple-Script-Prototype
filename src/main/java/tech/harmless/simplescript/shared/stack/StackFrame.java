@@ -1,8 +1,8 @@
 package tech.harmless.simplescript.shared.stack;
 
-import tech.harmless.simplescript.shared.instructions.Instruction;
-import tech.harmless.simplescript.shared.data.TypedData;
 import tech.harmless.simplescript.shared.data.EnumType;
+import tech.harmless.simplescript.shared.data.TypedData;
+import tech.harmless.simplescript.shared.instructions.Instruction;
 
 import java.util.HashMap;
 import java.util.Map;

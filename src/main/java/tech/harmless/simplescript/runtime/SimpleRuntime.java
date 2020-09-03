@@ -1,13 +1,14 @@
 package tech.harmless.simplescript.runtime;
 
 import tech.harmless.simplescript.runtime.memory.Register;
+import tech.harmless.simplescript.runtime.systemlib.NativeLib;
 import tech.harmless.simplescript.shared.CompiledScript;
-import tech.harmless.simplescript.shared.types.RegisterType;
+import tech.harmless.simplescript.shared.data.EnumType;
+import tech.harmless.simplescript.shared.data.TypedData;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
-import tech.harmless.simplescript.shared.data.TypedData;
-import tech.harmless.simplescript.shared.data.EnumType;
+import tech.harmless.simplescript.shared.types.RegisterType;
 import tech.harmless.simplescript.shared.utils.Triplet;
 import tech.harmless.simplescript.shared.utils.Tuple;
 
@@ -90,8 +91,6 @@ public class SimpleRuntime {
                         System.out.println("DISCARD_FRAME");
 
                         // The return register should have already been filled with data.
-                        //TODO Manually check return register.
-
                         script.discardCurrentFrame();
                         cFrame = null;
                     }
@@ -120,7 +119,7 @@ public class SimpleRuntime {
 
                     // Operation Instructions
                     //TODO Should edit the return register.
-                    case ARITHMETIC_OPERATION -> {
+                    /*case ARITHMETIC_OPERATION -> {
                         assert false;
                         //TODO Implement!
                     }
@@ -131,7 +130,7 @@ public class SimpleRuntime {
                     case LOGIC_OPERATION -> {
                         assert false;
                         //TODO Implement!
-                    }
+                    }*/
 
                     // Jumping Instructions
                     //TODO Implement.
@@ -140,14 +139,24 @@ public class SimpleRuntime {
                     //TODO Implement.
                     case CALL_SYSTEM_LIB -> {
                         // If a null is returned then the method is void.
-                        Tuple<String, Tuple<Boolean, Object>[]> data = (Tuple<String, Tuple<Boolean, Object>[]>) in.getData();
+                        Tuple<String, Tuple<Boolean, Object>[]> data =
+                                (Tuple<String, Tuple<Boolean, Object>[]>) in.getData();
 
                         // Process data->data
-                        Tuple<Boolean, Object>[] j;
-
+                        Object[] objs = new Object[data.y.length];
+                        for(int i = 0; i < objs.length; i++) {
+                            if(data.y[i].x) {
+                                // Is Var
+                                TypedData var = script.getVar((String) data.y[i].y);
+                                objs[i] = var.getValue();
+                            }
+                            else
+                                objs[i] = data.y[i].y;
+                        }
 
                         // Execute
-                        Object methodReturn = null;
+                        TypedData methodReturn = NativeLib.run(data.x, objs);
+                        register.setReg(RegisterType.RETURN, methodReturn);
                     }
                     case EXIT -> {
                         running = false;

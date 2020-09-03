@@ -56,7 +56,6 @@ task jlink(type: Exec) {
     dependsOn "copyDependencies"
 
     workingDir "$buildDir"
-    //commandLine "cmd", "/c", "DIR"
     commandLine "cmd", "/c", "jlink",
             "--launcher", "simplelauncher=tech.harmless.simplescript/tech.harmless.simplescript.SimpleScript",
             "--module-path", "\"%JAVA_HOME%/jmods/\";\"jmods/\";\"libs/\"",

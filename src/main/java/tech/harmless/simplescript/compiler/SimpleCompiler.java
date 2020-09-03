@@ -1,11 +1,7 @@
 package tech.harmless.simplescript.compiler;
 
 import tech.harmless.simplescript.shared.CompiledScript;
-import tech.harmless.simplescript.shared.instructions.EnumInstruction;
-import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
-import tech.harmless.simplescript.shared.data.EnumType;
-import tech.harmless.simplescript.shared.utils.Triplet;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;

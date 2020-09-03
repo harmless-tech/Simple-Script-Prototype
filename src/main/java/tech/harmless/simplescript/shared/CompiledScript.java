@@ -1,9 +1,9 @@
 package tech.harmless.simplescript.shared;
 
+import tech.harmless.simplescript.shared.data.TypedData;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
-import tech.harmless.simplescript.shared.data.TypedData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ public class CompiledScript {
     //TODO Possible refactor of var passing!
     public CompiledScript(String entryMethod /* EntryClassName.MethodName */, Map<String, MethodStackFrame> methods) {
         this.methods = methods;
+        //TODO Add in precompiled system lib.
 
         frames = new ArrayList<>();
         currentFrame = 0;

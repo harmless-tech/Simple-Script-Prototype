@@ -10,7 +10,7 @@ static final boolean DEBUG = false;
 static int counter; // 0
 
 #ENTRY() {
-	Print.println(ENTRY_STRING);
+	Print.println(ENTRY_STRING); // ENTRY_STRING is auto injected.
 
 	Print.println(counter);
 	counter = counter + 1; // These should all compile to the same instructions.
