@@ -1,4 +1,4 @@
-package tech.harmless.simplescript.runtime;
+package tech.harmless.simplescript.runtime.memory;
 
 import tech.harmless.simplescript.shared.data.TypedData;
 
@@ -19,7 +19,6 @@ public class Register {
         register[reg] = data;
     }
 
-    //TODO Redo!
     public TypedData getReg(int reg) {
         TypedData regVar = register[reg];
         register[reg] = null; // Once used the data in the register expires.

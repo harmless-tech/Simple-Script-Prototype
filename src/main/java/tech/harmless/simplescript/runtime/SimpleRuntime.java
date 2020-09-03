@@ -1,5 +1,6 @@
 package tech.harmless.simplescript.runtime;
 
+import tech.harmless.simplescript.runtime.memory.Register;
 import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.shared.types.RegisterType;
 import tech.harmless.simplescript.shared.instructions.Instruction;
@@ -37,6 +38,7 @@ public class SimpleRuntime {
                 Instruction in = cFrame.nextInstruction();
 
                 //TODO Add more instructions.
+                //TODO None of these instructions account for the data types not being matched.
                 switch(in.getInstruction()) {
                     default -> {
                         assert (false) : "Unsupported instruction.";
@@ -137,10 +139,19 @@ public class SimpleRuntime {
                     // System Instructions
                     //TODO Implement.
                     case CALL_SYSTEM_LIB -> {
-                        assert false;
+                        // If a null is returned then the method is void.
+                        Tuple<String, Tuple<Boolean, Object>[]> data = (Tuple<String, Tuple<Boolean, Object>[]>) in.getData();
+
+                        // Process data->data
+                        Tuple<Boolean, Object>[] j;
+
+
+                        // Execute
+                        Object methodReturn = null;
                     }
                     case EXIT -> {
-                        //register.setReg(RegisterType.EXIT_CODE);
+                        running = false;
+                        System.exit((int) register.getReg(RegisterType.EXIT_CODE).getValue());
                     }
                 }
             }

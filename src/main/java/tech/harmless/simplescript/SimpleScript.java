@@ -4,16 +4,18 @@ import tech.harmless.simplescript.compiler.SimpleCompiler;
 import tech.harmless.simplescript.runtime.SimpleRuntime;
 import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.runtime.systemlib.SimpleLib;
+import tech.harmless.simplescript.shared.data.EnumType;
 
 import java.util.Arrays;
 import java.util.Date;
 
 //TODO Rewrite in a lower level language.
 //TODO Add tests.
+//TODO Fix confusion between args and params.
 public class SimpleScript {
 
     private static SimpleScript INSTANCE; // Class instance for allowing access to flags.
-    //TODO Add log4j and format it.
+    //TODO Add log4j and format it. Switch!
 
     //TODO Figure out flags and defaults.
     public final String FLAG_NAME = "Default"; //TODO Init in constructor.
@@ -33,7 +35,11 @@ public class SimpleScript {
         //TODO Redo to include args and make dynamic.
         System.out.println("All args are ignored for now!");
 
-        SimpleLib.run("println", "Hello! I'm the lib");
+        //TODO Remove lib test.
+        assert SimpleLib.run("println", "Hello! I'm the lib") == null;
+        assert ((long) SimpleLib.run("getMemoryInBytes")) == -2;
+        assert ((long) SimpleLib.run("createList", EnumType.INT32)) == -1;
+        assert !((boolean) SimpleLib.run("addToList", 10l, "ubivrgeu"));
         System.out.println();
 
         //SimpleCompiler.compile("Entry.simple");

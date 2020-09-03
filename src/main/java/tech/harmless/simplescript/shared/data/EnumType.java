@@ -1,5 +1,6 @@
 package tech.harmless.simplescript.shared.data;
 
+//TODO Add unsigned types?
 public enum EnumType {
     CHAR, // Default: '0'
     STRING, // Default: ""

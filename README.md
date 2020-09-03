@@ -17,6 +17,7 @@ TODO Add url to language spec.
 - Security and safety of the vm/runtime. (All vars should be has private and final has possible)
 
 ### Partial TODO
+- Try to hit test/src3 milestone.
 - Allow for operations. (Arithmetic, Relational, Logic)
 - Allow for control flow structures. (if, while, for)
 - Array and Tuple type implementation.

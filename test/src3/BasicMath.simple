@@ -1,5 +1,3 @@
-#SYSTEM_LIB()
-
 import prints/Print.simple;
 
 object add(object a, object b) {

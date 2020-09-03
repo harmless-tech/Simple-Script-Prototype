@@ -10,6 +10,8 @@ public class SimpleLib {
     private static final SimpleLib SIMPLE_LIB;
     private static final Method[] methods;
 
+    //TODO Add a heap somewhere. Later though.
+
     static {
         SIMPLE_LIB = new SimpleLib();
 
@@ -19,15 +21,17 @@ public class SimpleLib {
     }
 
     // If the method is a void return type, then this method will return null.
-    public static Object run(String methodName, Object... vars) {
+    public static Object run(String methodName, Object... args) {
         assert !methodName.equals("run");
+        assert !methodName.equals("parseArg");
 
         try {
             for(Method m : methods) {
                 //TODO Check if args are valid??? (In the compiler)
 
                 if(m.getName().equals(methodName)) {
-                    Object obj = m.invoke(SIMPLE_LIB, vars);
+                    assert args != null;
+                    Object obj = m.invoke(SIMPLE_LIB, args); //TODO Account for args.
 
                     assert m.getReturnType().equals(Void.TYPE) == (obj == null);
                     return obj;
@@ -44,24 +48,41 @@ public class SimpleLib {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
+    private static <T> T parseArg(int pos, Object[] args) {
+        assert pos < 0 && pos > args.length;
+
+        return (T) args[pos];
+    }
+
     private void println(Object print) {
         System.out.println(print);
-        //TODO More later.
+        //TODO More later?
     }
 
     private void print(Object print) {
         System.out.print(print);
-        //TODO More later.
+        //TODO More later?
     }
 
-    //TODO Allow for ending of the runtime.
     private void exit(int code) {
-        throw new UnsupportedOperationException();
+        //TODO Not super ideal.
+        System.exit(code);
+    }
+
+    private long getMemoryInBytes() {
+        return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
     }
 
     // Returns a "pointer" to the list.
     private long createList(EnumType type) {
+        // Check for an EnumType.
         //TODO Implement.
         return -1;
+    }
+
+    private boolean addToList(long pointer, Object data) {
+        //TODO Implement.
+        return false;
     }
 }

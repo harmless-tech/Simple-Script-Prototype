@@ -1,5 +1,3 @@
-#SYSTEM_LIB()
-
 boolean equal(object a, object b) {
 	return a == b;
 }

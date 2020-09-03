@@ -2,6 +2,8 @@ package tech.harmless.simplescript.shared.types;
 
 public final class RegisterType {
 
+    //TODO Add a cast register?
+
     public static final int OPERATION_ONE = 0;
     public static final int OPERATION_TWO = 1;
 

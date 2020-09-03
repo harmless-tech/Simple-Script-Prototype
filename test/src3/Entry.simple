@@ -1,4 +1,6 @@
-#SYSTEM_LIB()
+#SYSTEM_LIB() // NativeSystem /* No methods in the args. */
+import System; // SimpleScriptSystem
+
 import prints/Print.simple;
 import BasicCompare.simple;
 import BasicMath.simple;
@@ -15,6 +17,30 @@ static int counter; // 0
 	counter += 1;
 	counter++;
 	Print.println(counter);
+	
+	Print.println(DEBUG);
+	Print.println("This \"is\" valid");
+	
+	int a = 2;
+	Print.println(a);
+	{
+		Print.println(a);
+		int a = 1; // Scope local vars override all others in that scope.
+		// int a = 100; This won't work however.
+		Print.println(a);
+		
+		Print.println(a);
+		a = 4;
+		Print.println(a);
+	}
+	Print.println(a);
+	
+	BasicMath.add();
+	
+	/*
+	System.println(ALLOWS METHODS);
+	NativeSystem.println(NO METHODS);
+	*/
 	
 	// Exit program.
 }

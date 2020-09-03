@@ -220,21 +220,21 @@ public class SimpleCompiler {
         Map<String, MethodStackFrame> methods = new HashMap<>();
 
         // Frame: main
-        {
+        /*{
             Instruction[] ins = {
                     new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
                     new Instruction(EnumInstruction.DISCARD_FRAME, null),
                     new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
                     new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
-                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, "Entry3.meme", null /* Can this be null? */)),
+                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, "Entry3.meme", null *//* Can this be null? *//*)),
                     new Instruction(EnumInstruction.DISCARD_FRAME, null),
                     new Instruction(EnumInstruction.DISCARD_FRAME, null),
-                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, "Entry3.meme", null /* Can this be null? */)),
+                    new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, "Entry3.meme", null *//* Can this be null? *//*)),
                     //new Instruction(EnumInstruction.LOAD_REG, new Tuple<>(RegisterType.RETURN, new TypedData(EnumType.VOID, null))),
-                    /* The return register should only be loaded when the data is going to be used.
+                    *//* The return register should only be loaded when the data is going to be used.
                     * int x = method(); YES
                     * method(); NO
-                    */
+                    *//*
                     new Instruction(EnumInstruction.DISCARD_FRAME, null)
             };
             MethodStackFrame msf = new MethodStackFrame(ins, EnumType.VOID);
@@ -251,7 +251,7 @@ public class SimpleCompiler {
             };
             MethodStackFrame msf = new MethodStackFrame(ins, EnumType.VOID);
             methods.put("Entry3.meme", msf);
-        }
+        }*/
 
         // Remove!
 

@@ -12,6 +12,7 @@ public enum EnumInstruction {
     LOAD_REG, // new Tuple<Integer (RegisterType), TypedData>(REG_TYPE, DATA); /* Loads data into a register. */
     LOAD_REG_VAR, // new Tuple<Integer (RegisterType), String>(REG_TYPE, VAR_NAME); /* Loads a var into a register. */
     TRANSFER_REG, // new Tuple<Integer (RegisterType), Integer (RegisterType)>(ORIGINAL_REG, NEW_REG); /* Shifts data in one register into another register. */
+    // CLEAR_REG /* Just don't put anything in the reg. */
 
     //TODO
     ARITHMETIC_OPERATION, // EnumArithmeticOperation /* Does a EnumArithmeticOperation and puts the data into the return register. */
@@ -21,8 +22,9 @@ public enum EnumInstruction {
     JUMP, // new Integer(JUMP_POINT); /* Jumps to a point in the instructions. */ (Checks the return register. Loops use this.)
     RETURN_JUMP, // NULL /* Returns to 1 + the instruction point before the jump. */
 
-    CALL_SYSTEM_LIB, //TODO ...
+    //CAST, TODO Add.
+    CALL_SYSTEM_LIB, // new Tuple<String, Tuple<Boolean, Object>[]>(NAME, (IS_VAR, NAME_OR_DATA[])); /*  */
 	//TODO Due to the data safety measures the data can not be collected by the runtime easily.
 	//DUMP, // NULL /* Dumps all the instructions, variables, and the current instructions position to a file. (DATE.simpledump) */
-    EXIT // NULL /* An TypedData should be loaded into the EXIT register. */
+    EXIT // NULL /* An TypedData of (INT32) should be loaded into the EXIT register. */
 }
