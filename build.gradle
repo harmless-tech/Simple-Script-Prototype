@@ -16,12 +16,19 @@ repositories {
 
 dependencies {
     implementation group: "org.slf4j", name: "slf4j-api", version: "1.7.30"
+    implementation group: "org.slf4j", name: "slf4j-jdk14", version: "1.7.30"
 
     //TODO Add testing, but it seems kinda broken in this version of gradle with modules.
 }
 
+plugins.withType(JavaPlugin).configureEach {
+    java {
+        modularity.inferModulePath = true
+    }
+}
+
 application {
-    mainModule = "simplescript"
+    mainModule = "tech.harmless.simplescript"
     mainClass = "tech.harmless.simplescript.SimpleScript"
     applicationDefaultJvmArgs = ["-Dfile.encoding=utf-8"]
 }

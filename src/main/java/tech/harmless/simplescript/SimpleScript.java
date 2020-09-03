@@ -1,5 +1,7 @@
 package tech.harmless.simplescript;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tech.harmless.simplescript.compiler.SimpleCompiler;
 import tech.harmless.simplescript.runtime.SimpleRuntime;
 import tech.harmless.simplescript.shared.CompiledScript;
@@ -13,6 +15,7 @@ import java.util.Date;
 public class SimpleScript {
 
     private static SimpleScript INSTANCE; // Class instance for allowing access to flags.
+    private final Logger logger = LoggerFactory.getLogger(getClass()); //TODO Custom logging format.
 
     //TODO Figure out flags and defaults.
     public final String FLAG_NAME = "Default"; //TODO Init in constructor.
@@ -22,6 +25,8 @@ public class SimpleScript {
 
     //TODO Needs a major rewrite.
     public SimpleScript(String[] args) {
+        logger.info("NEED A FIX!");
+
         System.out.println("Simple Script started at " + new Date());
         System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better.");
         System.out.println("Args: " + Arrays.toString(args));
