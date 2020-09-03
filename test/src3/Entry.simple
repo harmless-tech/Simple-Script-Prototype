@@ -1,5 +1,5 @@
-#SYSTEM_LIB() // NativeSystem /* No methods in the args. */
-import System; // SimpleScriptSystem
+//#SYSTEM_LIB() - Doesn't matter its always there. - NativeSystem /* No methods in the args. */
+import System; // SimpleScriptSystem - Doesn't matter its always there.
 
 import prints/Print.simple;
 import BasicCompare.simple;

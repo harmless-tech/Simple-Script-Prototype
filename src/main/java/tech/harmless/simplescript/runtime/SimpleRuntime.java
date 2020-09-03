@@ -137,6 +137,12 @@ public class SimpleRuntime {
 
                     // System Instructions
                     //TODO Implement.
+                    case CAST -> {
+                        EnumType data = (EnumType) in.getData();
+
+                        TypedData tData = RuntimeCast.cast(register.getReg(RegisterType.CAST), data);
+                        register.setReg(RegisterType.RETURN, tData);
+                    }
                     case CALL_SYSTEM_LIB -> {
                         // If a null is returned then the method is void.
                         Tuple<String, Tuple<Boolean, Object>[]> data =

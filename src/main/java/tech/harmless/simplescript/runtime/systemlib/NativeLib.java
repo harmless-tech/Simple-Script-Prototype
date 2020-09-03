@@ -1,6 +1,5 @@
 package tech.harmless.simplescript.runtime.systemlib;
 
-import org.jetbrains.annotations.NotNull;
 import tech.harmless.simplescript.shared.data.EnumType;
 import tech.harmless.simplescript.shared.data.TypedData;
 
@@ -23,7 +22,6 @@ public class NativeLib {
     }
 
     // If the method is a void return type, then this method will return null.
-    @NotNull
     public static TypedData run(String methodName, Object... args) {
         assert !methodName.equals("run");
         assert !methodName.equals("parseArg");
