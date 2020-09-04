@@ -2,6 +2,8 @@
 This is a prototype for a scripting language that is compiled and uses a vm to run.
 This will eventually be rewritten in a lower level language like rust, c, or c++.
 
+[Main Repo](https://github.com/harmless-tech/Simple-Script)
+
 ### Language Spec
 TODO Add url to language spec.
 
@@ -15,6 +17,7 @@ TODO Add url to language spec.
 - Minimal dependencies for the compiler and runtime.
 - Safety through the use of a compiler, and the ban on null values.
 - Security and safety of the vm/runtime. (All vars should be has private and final has possible)
+- Allow a heap to hold custom data structures, that will have a long pointer to them. (Part of native extensions)
 
 ### Partial TODO
 - Compiler Rewrite.
