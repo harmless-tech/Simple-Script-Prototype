@@ -41,4 +41,11 @@ public class MethodStackFrame extends StackFrame {
 
         return in;
     }
+
+    @Override
+    public void jumpInstructionPos(int pos) {
+        assert pos < 0 && pos >= instructions.size();
+
+        currentPos = pos;
+    }
 }

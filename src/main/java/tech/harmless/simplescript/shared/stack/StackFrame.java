@@ -23,6 +23,8 @@ public abstract class StackFrame {
 
     public abstract Instruction nextInstruction();
 
+    public abstract void jumpInstructionPos(int pos);
+
     public void allocVar(String name, TypedData var) {
         assert !allocatedVars.containsKey(name);
         allocatedVars.put(name, var);

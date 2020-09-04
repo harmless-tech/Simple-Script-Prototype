@@ -1,12 +1,15 @@
 package tech.harmless.simplescript.shared;
 
+import tech.harmless.simplescript.shared.data.EnumType;
 import tech.harmless.simplescript.shared.data.TypedData;
 import tech.harmless.simplescript.shared.instructions.EnumInstruction;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
+import tech.harmless.simplescript.shared.types.RegisterType;
 import tech.harmless.simplescript.shared.utils.Triplet;
+import tech.harmless.simplescript.shared.utils.Tuple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,8 @@ public class CompiledScript {
         Instruction[] topIns = {
                 new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
                 new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, entryMethod, null)),
+                new Instruction(EnumInstruction.LOAD_REG, new Tuple<>(RegisterType.EXIT_CODE, new TypedData(EnumType.INT32, 0))),
+                new Instruction(EnumInstruction.EXIT, null),
                 new Instruction(EnumInstruction.DISCARD_FRAME, null)
         };
         StackFrame topStack = new MethodStackFrame(topIns);

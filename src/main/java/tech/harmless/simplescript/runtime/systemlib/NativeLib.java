@@ -83,4 +83,10 @@ public class NativeLib {
         //TODO Implement.
         return new TypedData(EnumType.BOOLEAN, false);
     }
+
+    // --- Math ---
+    private TypedData round(double d) {
+        //TODO Implement.
+        return new TypedData(EnumType.INT32, 0);
+    }
 }

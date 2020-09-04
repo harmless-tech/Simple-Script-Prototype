@@ -26,7 +26,7 @@ public class SimpleScript {
     //TODO Needs a major rewrite.
     public SimpleScript(String[] args) {
 		// Possible Args:
-		// --unsafe, --entryfile, --out, 
+		// --unsafe, --entryfile, --out, --compile-run
 		
         System.out.println("Simple Script started at " + new Date());
         System.out.println("Args: " + Arrays.toString(args));

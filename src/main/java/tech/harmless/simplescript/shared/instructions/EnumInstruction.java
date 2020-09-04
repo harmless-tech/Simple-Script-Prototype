@@ -5,7 +5,7 @@ public enum EnumInstruction {
     ALLOC_VAR, // new Triplet<String, EnumType, Object>(NAME, TYPE, DEFAULT or DATA); EX: ("hello", EnumType.INT32, 0)
     SET_VAR, // new Tuple<String, Object>(NAME, DATA); EX: ("hello", 0)
     SET_VAR_REG, // new String(NAME); /* Sets the var using the return register. */
-    GET_VAR, // new String(NAME) EX: "hello" TODO Is this needed???
+    //GET_VAR, // new String(NAME) EX: "hello" /* This is technically set var reg */
 
     CREATE_FRAME, // new Triplet<Boolean, String, Object[]>(IS_METHOD, METHOD_NAME, METHOD_ARGS);
     DISCARD_FRAME, // NULL /* The return register should only be loaded if the frame returns a value. */
@@ -20,12 +20,11 @@ public enum EnumInstruction {
     COMPARE_OPERATION, // EnumRelationalOperation /* Does a EnumRelationalOperation and puts the data into the return register. */
     LOGIC_OPERATION, // EnumLogicOperation /* Does a EnumLogicOperation and puts the data into the return register. */
 
-    //TODO
-    JUMP, // new Integer(JUMP_POINT); /* Jumps to a point in the instructions. */ (Checks the return register. Loops use this.)
-    RETURN_JUMP, // NULL /* Returns to 1 + the instruction point before the jump. */
+    PUSH_JUMP, // new Integer(JUMP_POINT); /* Jumps to a point in the instructions. */ (Checks the return register. Loops use this.)
+    POP_JUMP, // NULL /* Returns to 1 + the instruction point before the jump. */
 
     CAST, // EnumType /* Casts the CAST register to the desired type and puts it into the RETURN register. */
-    CALL_SYSTEM_LIB, // new Tuple<String, Tuple<Boolean, Object>[]>(NAME, (IS_VAR, NAME_OR_DATA[])); TODO Use LOAD_REG_VAR??
+    CALL_NATIVE, // new Tuple<String, Tuple<Boolean, Object>[]>(NAME, (IS_VAR, NAME_OR_DATA[])); TODO Use LOAD_REG_VAR??
 	//TODO Due to the data safety measures the data can not be collected by the runtime easily.
 	//DUMP, // NULL /* Dumps all the instructions, variables, and the current instructions position to a file. (DATE.simpledump) */
     EXIT // NULL /* An TypedData of (INT32) should be loaded into the EXIT register. */

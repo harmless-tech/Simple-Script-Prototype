@@ -1,6 +1,5 @@
 package tech.harmless.simplescript.shared.stack;
 
-import tech.harmless.simplescript.shared.data.EnumType;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 
 public class ScopeStackFrame extends StackFrame {
@@ -28,5 +27,10 @@ public class ScopeStackFrame extends StackFrame {
     @Override
     public Instruction nextInstruction() {
         return parent.nextInstruction();
+    }
+
+    @Override
+    public void jumpInstructionPos(int pos) {
+        parent.jumpInstructionPos(pos);
     }
 }

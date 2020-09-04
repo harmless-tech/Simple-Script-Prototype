@@ -12,11 +12,14 @@ import tech.harmless.simplescript.shared.types.RegisterType;
 import tech.harmless.simplescript.shared.utils.Triplet;
 import tech.harmless.simplescript.shared.utils.Tuple;
 
+import java.util.Stack;
+
 // At no time should there be instructions added during the runtime.
 public class SimpleRuntime {
 
     private final CompiledScript script;
     private final Register register;
+    private final Stack<Integer> jump;
 
     private boolean running;
 
@@ -24,6 +27,7 @@ public class SimpleRuntime {
         this.script = script;
 
         register = new Register();
+        jump = new Stack<>();
         running = false;
     }
 
@@ -66,12 +70,12 @@ public class SimpleRuntime {
 
                         script.setVar(name, data.getValue());
                     }
-                    case GET_VAR -> {
+                    /*case GET_VAR -> {
                         System.out.println("GET_VAR");
 
                         String data = (String) in.getData();
                         script.getVar(data); //TODO Where to put this???
-                    }
+                    }*/
 
                     // Frame Instructions
                     case CREATE_FRAME -> {
@@ -133,16 +137,34 @@ public class SimpleRuntime {
                     }*/
 
                     // Jumping Instructions
-                    //TODO Implement.
+                    case PUSH_JUMP -> {
+                        System.out.println("PUSH_JUMP");
+
+                        int data = (int) in.getData();
+                        jump.add(data);
+                        cFrame.jumpInstructionPos(data);
+                    }
+                    case POP_JUMP -> {
+                        System.out.println("POP_JUMP");
+
+                        assert jump.size() > 0;
+
+                        int data = jump.pop();
+                        cFrame.jumpInstructionPos(data);
+                    }
 
                     // System Instructions
                     case CAST -> {
+                        System.out.println("CAST");
+
                         EnumType data = (EnumType) in.getData();
 
                         TypedData tData = RuntimeCast.cast(register.getReg(RegisterType.CAST), data);
                         register.setReg(RegisterType.RETURN, tData);
                     }
-                    case CALL_SYSTEM_LIB -> {
+                    case CALL_NATIVE -> {
+                        System.out.println("CALL_NATIVE");
+
                         // If a null is returned then the method is void.
                         Tuple<String, Tuple<Boolean, Object>[]> data =
                                 (Tuple<String, Tuple<Boolean, Object>[]>) in.getData();
@@ -164,6 +186,8 @@ public class SimpleRuntime {
                         register.setReg(RegisterType.RETURN, methodReturn);
                     }
                     case EXIT -> {
+                        System.out.println("EXIT");
+
                         running = false;
                         System.exit((int) register.getReg(RegisterType.EXIT_CODE).getValue());
                     }

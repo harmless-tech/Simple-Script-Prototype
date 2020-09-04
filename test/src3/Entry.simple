@@ -1,5 +1,5 @@
 //#SYSTEM_LIB() - Doesn't matter its always there. - NativeSystem /* No methods in the args. */
-import System; // SimpleScriptSystem - Doesn't matter its always there.
+//import System; // SimpleScriptSystem - Doesn't matter its always there.
 
 import prints/Print.simple;
 import BasicCompare.simple;
@@ -39,7 +39,7 @@ static int counter; // 0
 	
 	/*
 	System.println(ALLOWS METHODS);
-	NativeSystem.println(NO METHODS);
+	NativeSystem.println(NO METHODS); // This is considered unsafe. Should generate a warning.
 	*/
 	
 	// Exit program.
