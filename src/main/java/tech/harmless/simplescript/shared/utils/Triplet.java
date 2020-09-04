@@ -1,6 +1,5 @@
 package tech.harmless.simplescript.shared.utils;
 
-//TODO Move to shared??
 /**
  * A triplet type that allows for the holding of three data types.
  *

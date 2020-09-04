@@ -2,6 +2,7 @@ package tech.harmless.simplescript.compiler;
 
 import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
+import tech.harmless.simplescript.shared.utils.Log;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -98,14 +99,14 @@ public class SimpleCompiler { // Compiler should "run" the program.
     }
 
     public static CompiledScript compile(String entryFile) { //TODO Check for directory info.
-		System.out.println("Warning! The compiler does not do any safety checks currently.");
+        Log.warn("The compiler does not do any safety checks currently!");
 	
         String eFile = importFile(entryFile); //TODO This needs to change.
         eFile = removeCommentsAndEmpty(eFile);
         eFile = replacePreTags(eFile);
         eFile = oneLineReduceSpaces(eFile);
 
-        System.out.println("Hello!\n" + eFile);
+        Log.debug("Hello!\n" + eFile);
 
         return implCompile(eFile);
     }
@@ -120,7 +121,7 @@ public class SimpleCompiler { // Compiler should "run" the program.
         }
         catch(IOException e) {
             e.printStackTrace();
-            System.exit(-1);
+            Log.fatal(-300, "Failed to import file!");
         }
 
         return "NULL"; //TODO Handle this!

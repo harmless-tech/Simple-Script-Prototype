@@ -11,6 +11,7 @@ build
 *.tmp
 *.temp
 
+*.log
 bin
 simple.log
 *.simplebin

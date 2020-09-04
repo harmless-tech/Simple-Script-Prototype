@@ -16,6 +16,7 @@ import tech.harmless.simplescript.shared.types.EnumArithmeticOperation;
 import tech.harmless.simplescript.shared.types.EnumLogicOperation;
 import tech.harmless.simplescript.shared.types.EnumRelationalOperation;
 import tech.harmless.simplescript.shared.types.RegisterType;
+import tech.harmless.simplescript.shared.utils.Log;
 import tech.harmless.simplescript.shared.utils.Triplet;
 import tech.harmless.simplescript.shared.utils.Tuple;
 
@@ -58,19 +59,19 @@ public class SimpleRuntime {
 
                     // Var Instructions
                     case ALLOC_VAR -> {
-                        System.out.println("ALLOC_VAR");
+                        Log.debug("ALLOC_VAR");
 
                         Triplet<String, EnumType, Object> data = (Triplet<String, EnumType, Object>) in.getData();
                         cFrame.allocVar(data.x, new TypedData(data.y, data.z));
                     }
                     case SET_VAR -> {
-                        System.out.println("SET_VAR");
+                        Log.debug("SET_VAR");
 
                         Tuple<String, Object> data = (Tuple<String, Object>) in.getData();
                         script.setVar(data.x, data.y);
                     }
                     case SET_VAR_REG -> {
-                        System.out.println("SET_VAR_REG");
+                        Log.debug("SET_VAR_REG");
 
                         String name = (String) in.getData();
                         TypedData data = register.getReg(RegisterType.RETURN);
@@ -78,7 +79,7 @@ public class SimpleRuntime {
                         script.setVar(name, data.getValue());
                     }
                     /*case GET_VAR -> { TODO Remove.
-                        System.out.println("GET_VAR");
+                        Log.debug("GET_VAR");
 
                         String data = (String) in.getData();
                         script.getVar(data);
@@ -86,11 +87,12 @@ public class SimpleRuntime {
 
                     // Frame Instructions
                     case CREATE_FRAME -> {
-                        System.out.println("CREATE_FRAME");
+                        Log.debug("CREATE_FRAME");
 
                         Triplet<Boolean, String, Object[]> data = (Triplet<Boolean, String, Object[]>) in.getData();
                         if(data.x) {
                             //TODO Add entry args into stack frame vars. (method(param 1, param 2)) (In compiler)
+                            // Something like CALL_NATIVE
                             script.pushFrame(data.y);
                         }
                         else
@@ -99,7 +101,7 @@ public class SimpleRuntime {
                         cFrame = null;
                     }
                     case DISCARD_FRAME -> {
-                        System.out.println("DISCARD_FRAME");
+                        Log.debug("DISCARD_FRAME");
 
                         // The return register should have already been filled with data.
                         script.discardCurrentFrame();
@@ -108,13 +110,13 @@ public class SimpleRuntime {
 
                     // Register Instructions
                     case LOAD_REG -> {
-                        System.out.println("LOAD_REG");
+                        Log.debug("LOAD_REG");
 
                         Tuple<Integer, TypedData> data = (Tuple<Integer, TypedData>) in.getData();
                         register.setReg(data.x, data.y);
                     }
                     case LOAD_REG_VAR -> {
-                        System.out.println("LOAD_REG_VAR");
+                        Log.debug("LOAD_REG_VAR");
 
                         Tuple<Integer, String> data = (Tuple<Integer, String>) in.getData();
                         TypedData varData = script.getVar(data.y);
@@ -122,7 +124,7 @@ public class SimpleRuntime {
                         register.setReg(data.x, varData);
                     }
                     case TRANSFER_REG -> {
-                        System.out.println("TRANSFER_REG");
+                        Log.debug("TRANSFER_REG");
 
                         Tuple<Integer, Integer> data = (Tuple<Integer, Integer>) in.getData();
                         register.setReg(data.y, register.getReg(data.x));
@@ -130,7 +132,7 @@ public class SimpleRuntime {
 
                     // Operation Instructions
                     case ARITHMETIC_OPERATION -> {
-                        System.out.println("ARITHMETIC_OPERATION");
+                        Log.debug("ARITHMETIC_OPERATION");
 
                         EnumArithmeticOperation data = (EnumArithmeticOperation) in.getData();
                         TypedData dat1 = register.getReg(RegisterType.OPERATION_ONE);
@@ -140,7 +142,7 @@ public class SimpleRuntime {
                         register.setReg(RegisterType.RETURN, rData);
                     }
                     case RELATIONAL_OPERATION -> {
-                        System.out.println("COMPARE_OPERATION");
+                        Log.debug("COMPARE_OPERATION");
 
                         EnumRelationalOperation data = (EnumRelationalOperation) in.getData();
                         TypedData dat1 = register.getReg(RegisterType.OPERATION_ONE);
@@ -150,7 +152,7 @@ public class SimpleRuntime {
                         register.setReg(RegisterType.RETURN, rData);
                     }
                     case LOGIC_OPERATION -> {
-                        System.out.println("LOGIC_OPERATION");
+                        Log.debug("LOGIC_OPERATION");
 
                         EnumLogicOperation data = (EnumLogicOperation) in.getData();
                         TypedData dat1 = register.getReg(RegisterType.OPERATION_ONE);
@@ -162,7 +164,7 @@ public class SimpleRuntime {
 
                     // Jumping Instructions
                     case PUSH_JUMP -> {
-                        System.out.println("PUSH_JUMP");
+                        Log.debug("PUSH_JUMP");
 
                         int data = (int) in.getData();
                         TypedData reg = register.getReg(RegisterType.RETURN);
@@ -174,7 +176,7 @@ public class SimpleRuntime {
                         cFrame.jumpInstructionPos(data);
                     }
                     case POP_JUMP -> {
-                        System.out.println("POP_JUMP");
+                        Log.debug("POP_JUMP");
 
                         assert jump.size() > 0;
 
@@ -184,7 +186,7 @@ public class SimpleRuntime {
 
                     // System Instructions
                     case CAST -> {
-                        System.out.println("CAST");
+                        Log.debug("CAST");
 
                         EnumType data = (EnumType) in.getData();
 
@@ -192,7 +194,7 @@ public class SimpleRuntime {
                         register.setReg(RegisterType.RETURN, tData);
                     }
                     case CALL_NATIVE -> {
-                        System.out.println("CALL_NATIVE");
+                        Log.debug("CALL_NATIVE");
 
                         //TODO Allow calling of other natives.
 
@@ -217,7 +219,7 @@ public class SimpleRuntime {
                         register.setReg(RegisterType.RETURN, methodReturn);
                     }
                     case EXIT -> {
-                        System.out.println("EXIT");
+                        Log.debug("EXIT");
 
                         running = false;
                         System.exit((int) register.getReg(RegisterType.EXIT_CODE).getValue());

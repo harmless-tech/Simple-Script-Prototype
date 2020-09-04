@@ -2,6 +2,7 @@ package tech.harmless.simplescript.runtime.systemlib;
 
 import tech.harmless.simplescript.shared.data.EnumType;
 import tech.harmless.simplescript.shared.data.TypedData;
+import tech.harmless.simplescript.shared.utils.Log;
 
 import java.lang.reflect.Method;
 
@@ -40,9 +41,8 @@ public class NativeLib {
             }
         }
         catch(Exception e) {
-            System.err.println(methodName + " call did not work!");
             e.printStackTrace();
-            assert false;
+            Log.fatal(-301, methodName + " call failed!");
         }
 
         assert false; // This should never be hit, because the compiler will check everything beforehand.
@@ -60,18 +60,26 @@ public class NativeLib {
         return new TypedData(EnumType.INT64, mem);
     }
 
-    //region <ConsoleIO>
+    //region <Entry>
 
-    private TypedData println(Object print) {
-        System.out.println(print);
-        return TypedData.VOID;
-        //TODO More later?
+    private TypedData args() {
+        assert false;
+        //TODO Record entry args.
+        return null;
     }
 
-    private TypedData print(Object print) {
-        System.out.print(print);
+    //endregion
+
+    //region <ConsoleIO>
+
+    /*private TypedData println(Object print) {
+        Log.script(print);
         return TypedData.VOID;
-        //TODO More later?
+    }*/
+
+    private TypedData print(Object print) {
+        Log.script(print);
+        return TypedData.VOID;
     }
 
     //endregion

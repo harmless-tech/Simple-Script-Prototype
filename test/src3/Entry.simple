@@ -10,7 +10,7 @@ static final boolean DEBUG = false;
 static int counter; // 0
 
 #ENTRY() {
-	Print.println(ENTRY_STRING); // ENTRY_STRING is auto injected.
+	Print.println(NativeSystem.args());
 
 	Print.println(counter);
 	counter = counter + 1; // These should all compile to the same instructions.
@@ -39,7 +39,7 @@ static int counter; // 0
 	
 	/*
 	System.println(ALLOWS METHODS);
-	NativeSystem.println(NO METHODS); // This is considered unsafe. Should generate a warning.
+	NativeSystem.print(NO METHODS); // This is considered unsafe. Should generate a compiler warning.
 	*/
 	
 	// Exit program.

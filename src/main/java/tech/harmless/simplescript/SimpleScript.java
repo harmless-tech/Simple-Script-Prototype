@@ -5,9 +5,12 @@ import tech.harmless.simplescript.runtime.SimpleRuntime;
 import tech.harmless.simplescript.runtime.systemlib.NativeLib;
 import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.shared.data.EnumType;
+import tech.harmless.simplescript.shared.utils.Log;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
-import java.util.Date;
 
 //TODO Rewrite in a lower level language.
 //TODO Add tests.
@@ -15,7 +18,6 @@ import java.util.Date;
 public class SimpleScript {
 
     private static SimpleScript INSTANCE; // Class instance for allowing access to flags.
-    //TODO Add log4j and format it. Switch!
 
     //TODO Figure out flags and defaults.
     public final String FLAG_NAME = "Default"; //TODO Init in constructor.
@@ -27,20 +29,12 @@ public class SimpleScript {
     public SimpleScript(String[] args) {
 		// Possible Args:
 		// --unsafe, --entryfile, --out, --compile-run
-		
-        System.out.println("Simple Script started at " + new Date());
-        System.out.println("Args: " + Arrays.toString(args));
+
+        Log.info("Simple Script started.");
+        Log.debug("Args: " + Arrays.toString(args));
         //System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better."); TODO Move to compiler.
 
         //TODO Redo to include args and make dynamic.
-        System.out.println("All args are ignored for now!");
-
-        //TODO Remove lib test.
-        assert NativeLib.run("println", "Hello! I'm the lib") == null;
-        assert ((long) NativeLib.run("getMemoryInBytes").getValue()) == -2;
-        assert ((long) NativeLib.run("createList", EnumType.INT32).getValue()) == -1;
-        assert !((boolean) NativeLib.run("addToList", 10l, "ubivrgeu").getValue());
-        System.out.println();
 
         //SimpleCompiler.compile("Entry.simple");
         CompiledScript script = SimpleCompiler.compile("test/src2/Entry3.simple");
@@ -52,6 +46,23 @@ public class SimpleScript {
     }
 
     public static void main(String[] args) {
+        // Logger setup.
+        try {
+            PrintStream outStream = new PrintStream(new File("simple.log"));
+            System.setOut(outStream);
+            System.out.println("Out logging init.");
+
+            PrintStream errStream = new PrintStream(new File("simple-err.log"));
+            System.setErr(errStream);
+            System.err.println("Err logging init.");
+        }
+        catch(IOException e) {
+            System.err.println("Could not setup loggers!");
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+        // Instance setup.
         INSTANCE = new SimpleScript(args);
     }
 }
