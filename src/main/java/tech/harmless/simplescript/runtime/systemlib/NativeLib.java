@@ -5,13 +5,13 @@ import tech.harmless.simplescript.shared.data.TypedData;
 
 import java.lang.reflect.Method;
 
-//TODO Move to shared or to runtime??
+//TODO Flesh this out.
 public class NativeLib {
 
     private static final NativeLib SIMPLE_LIB;
     private static final Method[] methods;
 
-    //TODO Add a heap somewhere. Later though.
+    //TODO Add a heap with pointer system for more complex items.
 
     static {
         SIMPLE_LIB = new NativeLib();
@@ -32,7 +32,7 @@ public class NativeLib {
 
                 if(m.getName().equals(methodName)) {
                     assert args != null;
-                    TypedData data = (TypedData) m.invoke(SIMPLE_LIB, args); //TODO Account for args.
+                    TypedData data = (TypedData) m.invoke(SIMPLE_LIB, args);
 
                     assert data != null;
                     return data;
@@ -49,6 +49,19 @@ public class NativeLib {
         return null;
     }
 
+    private TypedData exit(int code) {
+        //TODO Not super ideal.
+        System.exit(code);
+        return TypedData.VOID;
+    }
+
+    private TypedData getMemoryInBytes() {
+        long mem =  Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        return new TypedData(EnumType.INT64, mem);
+    }
+
+    //region <ConsoleIO>
+
     private TypedData println(Object print) {
         System.out.println(print);
         return TypedData.VOID;
@@ -61,16 +74,18 @@ public class NativeLib {
         //TODO More later?
     }
 
-    private TypedData exit(int code) {
-        //TODO Not super ideal.
-        System.exit(code);
-        return TypedData.VOID;
+    //endregion
+
+    //region <Math>
+
+    private TypedData round(double d) {
+        //TODO Implement.
+        return new TypedData(EnumType.INT32, 0);
     }
 
-    private TypedData getMemoryInBytes() {
-        long mem =  Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-        return new TypedData(EnumType.INT64, mem);
-    }
+    //endregion
+
+    //region <List>
 
     // Returns a "pointer" to the list.
     private TypedData createList(EnumType type) {
@@ -84,9 +99,14 @@ public class NativeLib {
         return new TypedData(EnumType.BOOLEAN, false);
     }
 
-    // --- Math ---
-    private TypedData round(double d) {
-        //TODO Implement.
-        return new TypedData(EnumType.INT32, 0);
-    }
+    //endregion
+
+    //region <Network>
+    //endregion
+
+    //region <FileIO>
+    //endregion
+
+    //region <StringUtils>
+    //endregion
 }

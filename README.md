@@ -4,9 +4,6 @@ This will eventually be rewritten in a lower level language like rust, c, or c++
 
 [Main Repo](https://github.com/harmless-tech/Simple-Script)
 
-### Language Spec
-TODO Add url to language spec.
-
 ### Goals
 - Only primitive data types and arrays.
 - No structs or objects.
