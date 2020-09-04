@@ -2,7 +2,7 @@ package tech.harmless.simplescript.runtime.memory;
 
 import tech.harmless.simplescript.shared.data.TypedData;
 
-//TODO Register should only hold data for one loop. Add this check?
+// Register can hold data for multiple loops.
 public class Register {
 
     // Be aware that multiple register types might share the same register location.
@@ -24,7 +24,7 @@ public class Register {
         register[reg] = null; // Once used the data in the register expires.
 
         assert regVar != null; // When a register is accessed it should never be null.
-        assert register[reg] == null; //TODO Remove!!!
+        assert register[reg] == null;
         return regVar;
     }
 }

@@ -1,5 +1,9 @@
 package tech.harmless.simplescript.runtime;
 
+import tech.harmless.simplescript.runtime.instructionext.ExtArithmeticOperation;
+import tech.harmless.simplescript.runtime.instructionext.ExtCast;
+import tech.harmless.simplescript.runtime.instructionext.ExtLogicOperation;
+import tech.harmless.simplescript.runtime.instructionext.ExtRelationalOperation;
 import tech.harmless.simplescript.runtime.memory.Register;
 import tech.harmless.simplescript.runtime.systemlib.NativeLib;
 import tech.harmless.simplescript.shared.CompiledScript;
@@ -8,6 +12,9 @@ import tech.harmless.simplescript.shared.data.TypedData;
 import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
+import tech.harmless.simplescript.shared.types.EnumArithmeticOperation;
+import tech.harmless.simplescript.shared.types.EnumLogicOperation;
+import tech.harmless.simplescript.shared.types.EnumRelationalOperation;
 import tech.harmless.simplescript.shared.types.RegisterType;
 import tech.harmless.simplescript.shared.utils.Triplet;
 import tech.harmless.simplescript.shared.utils.Tuple;
@@ -70,11 +77,11 @@ public class SimpleRuntime {
 
                         script.setVar(name, data.getValue());
                     }
-                    /*case GET_VAR -> {
+                    /*case GET_VAR -> { TODO Remove.
                         System.out.println("GET_VAR");
 
                         String data = (String) in.getData();
-                        script.getVar(data); //TODO Where to put this???
+                        script.getVar(data);
                     }*/
 
                     // Frame Instructions
@@ -83,7 +90,7 @@ public class SimpleRuntime {
 
                         Triplet<Boolean, String, Object[]> data = (Triplet<Boolean, String, Object[]>) in.getData();
                         if(data.x) {
-                            //TODO Add entry args into stack frame vars.
+                            //TODO Add entry args into stack frame vars. (method(param 1, param 2)) (In compiler)
                             script.pushFrame(data.y);
                         }
                         else
@@ -122,26 +129,48 @@ public class SimpleRuntime {
                     }
 
                     // Operation Instructions
-                    //TODO Should edit the return register.
-                    /*case ARITHMETIC_OPERATION -> {
-                        assert false;
-                        //TODO Implement!
+                    case ARITHMETIC_OPERATION -> {
+                        System.out.println("ARITHMETIC_OPERATION");
+
+                        EnumArithmeticOperation data = (EnumArithmeticOperation) in.getData();
+                        TypedData dat1 = register.getReg(RegisterType.OPERATION_ONE);
+                        TypedData dat2 = register.getReg(RegisterType.OPERATION_TWO);
+
+                        TypedData rData = ExtArithmeticOperation.arithmetic(data, dat1, dat2);
+                        register.setReg(RegisterType.RETURN, rData);
                     }
-                    case COMPARE_OPERATION -> {
-                        assert false;
-                        //TODO Implement!
+                    case RELATIONAL_OPERATION -> {
+                        System.out.println("COMPARE_OPERATION");
+
+                        EnumRelationalOperation data = (EnumRelationalOperation) in.getData();
+                        TypedData dat1 = register.getReg(RegisterType.OPERATION_ONE);
+                        TypedData dat2 = register.getReg(RegisterType.OPERATION_TWO);
+
+                        TypedData rData = ExtRelationalOperation.relational(data, dat1, dat2);
+                        register.setReg(RegisterType.RETURN, rData);
                     }
                     case LOGIC_OPERATION -> {
-                        assert false;
-                        //TODO Implement!
-                    }*/
+                        System.out.println("LOGIC_OPERATION");
+
+                        EnumLogicOperation data = (EnumLogicOperation) in.getData();
+                        TypedData dat1 = register.getReg(RegisterType.OPERATION_ONE);
+                        TypedData dat2 = register.getReg(RegisterType.OPERATION_TWO);
+
+                        TypedData rData = ExtLogicOperation.logic(data, dat1, dat2);
+                        register.setReg(RegisterType.RETURN, rData);
+                    }
 
                     // Jumping Instructions
                     case PUSH_JUMP -> {
                         System.out.println("PUSH_JUMP");
 
                         int data = (int) in.getData();
-                        jump.add(data);
+                        TypedData reg = register.getReg(RegisterType.RETURN);
+                        assert reg.getType() == EnumType.BOOLEAN && reg.getValue() != null;
+
+                        if((boolean) reg.getValue())
+                            jump.add(data);
+
                         cFrame.jumpInstructionPos(data);
                     }
                     case POP_JUMP -> {
@@ -159,11 +188,13 @@ public class SimpleRuntime {
 
                         EnumType data = (EnumType) in.getData();
 
-                        TypedData tData = RuntimeCast.cast(register.getReg(RegisterType.CAST), data);
+                        TypedData tData = ExtCast.cast(register.getReg(RegisterType.CAST), data);
                         register.setReg(RegisterType.RETURN, tData);
                     }
                     case CALL_NATIVE -> {
                         System.out.println("CALL_NATIVE");
+
+                        //TODO Allow calling of other natives.
 
                         // If a null is returned then the method is void.
                         Tuple<String, Tuple<Boolean, Object>[]> data =

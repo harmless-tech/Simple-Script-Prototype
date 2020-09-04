@@ -1,11 +1,12 @@
-package tech.harmless.simplescript.runtime;
+package tech.harmless.simplescript.runtime.instructionext;
 
 import tech.harmless.simplescript.shared.data.EnumType;
 import tech.harmless.simplescript.shared.data.TypedData;
 
-public class RuntimeCast {
+public class ExtCast {
     //TODO This class should allow casting of typed data.
 
+    //TODO Implement!
     public static TypedData cast(TypedData data, EnumType newType) {
         switch(data.getType()) {
             default -> { // Includes VOID

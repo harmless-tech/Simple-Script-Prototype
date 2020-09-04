@@ -69,7 +69,7 @@ public class SimpleCompiler { // Compiler should "run" the program.
         reservedWords.add("static");
         reservedWords.add("final");
 
-        reservedWords.add("type"); // Ids the type.
+        //reservedWords.add("type"); // Ids the type.
         reservedWords.add("void");
         reservedWords.add("object");
         reservedWords.add("boolean");
