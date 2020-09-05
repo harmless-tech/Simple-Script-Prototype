@@ -3,6 +3,9 @@
 [Name]
 Test 3
 
+[Version]
+0.0.1_Milestone_3
+
 [Out]
 3.simplebin
 

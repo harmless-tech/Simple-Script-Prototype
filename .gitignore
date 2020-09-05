@@ -11,7 +11,10 @@ build
 *.tmp
 *.temp
 
+log
+logs
 *.log
+
 bin
 simple.log
 *.simplebin
