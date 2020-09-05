@@ -1,5 +1,6 @@
 package tech.harmless.simplescript.shared.instructions;
 
+//TODO Instructions need to account for array and tuple types.
 //TODO NULL instructions can share a static instruction class. (To reduce memory.)
 public enum EnumInstruction {
     ALLOC_VAR, // new Triplet<String, EnumType, Object>(NAME, TYPE, DEFAULT or DATA); EX: ("hello", EnumType.INT32, 0)

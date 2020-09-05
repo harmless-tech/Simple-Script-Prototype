@@ -7,8 +7,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SimpleCompiler {
 
@@ -29,12 +34,19 @@ public class SimpleCompiler {
         if(buildFile) {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(f));
-                String[] lines = (String[]) reader.lines().toArray();
+                List<String> list = new ArrayList<>();
+
+                String in;
+                while((in = reader.readLine()) != null)
+                    list.add(in);
+                reader.close();
+
+                String[] lines = list.toArray(new String[0]);
 
                 for(int i = 0; i < lines.length; i++) {
                     String line = lines[i];
 
-                    if(!line.startsWith("#") && line.isBlank()) {
+                    if(!line.startsWith("#") && !line.isBlank() && line.startsWith("[")) {
                         line = line.trim();
                         String line2 = i + 1 < lines.length ? lines[i + 1].trim() : "";
                         i++;
@@ -64,6 +76,13 @@ public class SimpleCompiler {
 
     public CompiledScript generate() {
         // Loads and compiles. Including deps.
+
+        // Debug args
+        String argList = "Build args: \n";
+        argList += buildFileArgs.keySet().stream().map(key -> "    " + key + ": " + buildFileArgs.get(key) + "\n")
+                .collect(Collectors.joining(""));
+        Log.debug(argList);
+
         return null;
     }
 }

@@ -37,6 +37,10 @@ static int counter; // 0
 	
 	BasicMath.add();
 	
+	int a = {
+		return 5;
+	};
+	
 	/*
 	System.println(ALLOWS METHODS);
 	NativeSystem.print(NO METHODS); // This is considered unsafe. Should generate a compiler warning.

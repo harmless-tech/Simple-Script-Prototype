@@ -1,5 +1,6 @@
 package tech.harmless.simplescript;
 
+import tech.harmless.simplescript.compiler.SimpleCompiler;
 import tech.harmless.simplescript.shared.utils.Log;
 
 import java.util.Arrays;
@@ -25,6 +26,9 @@ public class SimpleScript {
         //System.out.println("I'm a pretty dumb compiler. Please be patient, I'm getting better."); TODO Move to compiler.
 
         //TODO Redo to include args and make dynamic.
+
+        SimpleCompiler compiler = new SimpleCompiler("test/build3.simplebuild", true);
+        compiler.generate();
 
         //SimpleCompiler.compile("Entry.simple");
         //CompiledScript script = OLDSimpleCompiler.compile("test/src2/Entry3.simple");
