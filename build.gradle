@@ -41,6 +41,13 @@ task debug {
     finalizedBy "run"
 }
 
+// This task is needed, since there could be no dependencies to copy.
+task ensureDirectory {
+    doLast {
+        mkdir "$buildDir/jmods"
+    }
+}
+
 task copyDependencies(type: Copy) {
     from configurations.runtimeClasspath
     into "$buildDir/jmods"
@@ -50,6 +57,7 @@ task copyDependencies(type: Copy) {
 task jlink(type: Exec) {
     dependsOn "clean"
     dependsOn "jar"
+    dependsOn "ensureDirectory"
     dependsOn "copyDependencies"
 
     workingDir "$buildDir"
