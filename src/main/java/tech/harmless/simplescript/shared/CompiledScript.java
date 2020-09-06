@@ -7,7 +7,7 @@ import tech.harmless.simplescript.shared.instructions.Instruction;
 import tech.harmless.simplescript.shared.stack.MethodStackFrame;
 import tech.harmless.simplescript.shared.stack.ScopeStackFrame;
 import tech.harmless.simplescript.shared.stack.StackFrame;
-import tech.harmless.simplescript.shared.types.RegisterType;
+import tech.harmless.simplescript.shared.types.CacheType;
 import tech.harmless.simplescript.shared.utils.Triplet;
 import tech.harmless.simplescript.shared.utils.Tuple;
 
@@ -35,7 +35,8 @@ public class CompiledScript {
         Instruction[] topIns = {
                 new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(false, null, null)),
                 new Instruction(EnumInstruction.CREATE_FRAME, new Triplet<>(true, entryMethod, null)),
-                new Instruction(EnumInstruction.LOAD_REG, new Tuple<>(RegisterType.EXIT_CODE, new TypedData(EnumType.INT32, 0))),
+                new Instruction(EnumInstruction.LOAD_REG, new Tuple<>(
+                        CacheType.EXIT_CODE, new TypedData(EnumType.INT32, 0))),
                 new Instruction(EnumInstruction.EXIT, null),
                 new Instruction(EnumInstruction.DISCARD_FRAME, null)
         };

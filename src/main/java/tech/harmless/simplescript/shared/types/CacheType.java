@@ -1,6 +1,6 @@
 package tech.harmless.simplescript.shared.types;
 
-public final class RegisterType {
+public final class CacheType {
 
     //TODO Add a cast register?
 

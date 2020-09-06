@@ -8,17 +8,16 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SimpleCompiler {
 
     private final Map<String, String> buildFileArgs; // Name, Data
 
+    //TODO The buildfile location needs to be recorded.
     public SimpleCompiler(String file, boolean buildFile) {
         buildFileArgs = new HashMap<>(5);
         buildFileArgs.put("Name", "Binary");
