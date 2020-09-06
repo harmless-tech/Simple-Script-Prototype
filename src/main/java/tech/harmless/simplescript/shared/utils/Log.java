@@ -71,17 +71,17 @@ public final class Log {
         errStream.flush();
     }
 
+    /*
+     * Exception codes:
+     *    - -100s = General Exe
+     *    - -200s = Compiler
+     *    - -300s = Runtime
+     */
     public static void exception(Exception e) {
         e.printStackTrace();
         e.printStackTrace(errStream);
 
         errStream.flush();
-
-        /*String out = "";
-
-        System.err.println(out);
-        errStream.println(out);
-        errStream.flush();*/
     }
 
     public static void fatal(int code, Object message) {

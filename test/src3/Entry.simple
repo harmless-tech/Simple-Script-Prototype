@@ -1,7 +1,8 @@
 //#SYSTEM_LIB() - Doesn't matter its always there. - NativeSystem /* No methods in the args. */
 //import System; // SimpleScriptSystem - Doesn't matter its always there.
+// Removed tags. They are unimportant.
 
-import prints/Print.simple;
+import prints/Print.simple; // Imports needed for checks.
 import BasicCompare.simple;
 import BasicMath.simple;
 import BasicLogic.simple;
@@ -9,7 +10,7 @@ import BasicLogic.simple;
 static final boolean DEBUG = false;
 static int counter; // 0
 
-#ENTRY() {
+void main {
 	Print.println(NativeSystem.args());
 
 	Print.println(counter);
@@ -50,5 +51,5 @@ static int counter; // 0
 }
 
 void end() {
-	#EXIT(-5)
+	NativeSystem.exit(-5);
 }

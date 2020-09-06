@@ -91,6 +91,7 @@ public class SimpleRuntime {
 
                         Triplet<Boolean, String, Object[]> data = (Triplet<Boolean, String, Object[]>) in.getData();
                         if(data.x) {
+                            //TODO IMPORTANT Entry args need to be processed for milestone 3.
                             //TODO Add entry args into stack frame vars. (method(param 1, param 2)) (In compiler)
                             // Something like CALL_NATIVE
                             script.pushFrame(data.y);
