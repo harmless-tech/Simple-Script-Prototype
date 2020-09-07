@@ -237,14 +237,37 @@ public class SimpleCompiler {
         // Find ;, {, or }.
         // If ; process statement.
         // If {} process scope.
-        // MAKE SURE TO ACCOUNT FOR int a = {return 5;};
+
+        while(content != null) {
+            int semiIndex = content.indexOf(';');
+            int openIndex = content.indexOf('{');
+            int closeIndex = content.indexOf('}');
+
+            if(semiIndex == -1 && openIndex == -1)
+                content = null;
+            else if(semiIndex < openIndex || openIndex == -1) {
+                // Should only be imports and globals.
+            }
+            else if(closeIndex != -1) {
+                // Method
+                //TODO What about scopes and control statements...
+            }
+            else
+                Log.fatal(-207, "Missing semi-colon, open brace, or close brace!");
+        }
     }
 
     private void processStatement() {
 
     }
 
-    private void process
+    private void processMethod() {
+
+    }
+
+    private void processScope() {
+
+    }
 
     //endregion
 

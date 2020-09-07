@@ -11,6 +11,8 @@ static final boolean DEBUG = false;
 static int Counter; // 0
 
 void main() {
+	//import prints/Print.simple; Not valid. All imports are global for a class.
+	
 	Print.println(NativeSystem.args());
 
 	Print.println(counter);
@@ -38,9 +40,9 @@ void main() {
 	
 	BasicMath.add();
 	
-	int a = {
+	/*int a = {
 		return 5;
-	};
+	};*/ Nah.
 	
 	/*
 	System.println(ALLOWS METHODS);
