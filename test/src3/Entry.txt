@@ -1,0 +1,56 @@
+// This is a hand compiled Entry file to check against the compiler.
+
+import prints/Print.simple; // For the compiler only.
+import BasicCompare.simple; // For the compiler only.
+import BasicMath.simple; // For the compiler only.
+import BasicLogic.simple; // For the compiler only.
+
+static final boolean DEBUG = false;
+static int Counter;
+
+// GLOBALS
+//
+
+void main() {
+	Print.println("Args: " + NativeSystem.args());
+
+	Print.println(counter);
+	counter = counter + 1;
+	counter += 1;
+	counter++;
+	Print.println(counter);
+	
+	Print.println(DEBUG);
+	Print.println("This \"is\" valid");
+	
+	int a = 2;
+	Print.println(a);
+	{
+		Print.println(a);
+		int a = 1;
+		Print.println(a);
+		
+		Print.println(a);
+		a = 4;
+		Print.println(a);
+	}
+	Print.println(a);
+	
+	BasicMath.add(2, 3);
+	
+	// Exit program.
+}
+
+// MAIN
+
+//
+
+void end() {
+	NativeSystem.exit(-5);
+}
+
+// END
+CREATE_FRAME new Triplet<>(true, "Entry.end", null);
+CALL_NATIVE new Tuple<>("exit", {new Tuple<>(false, -5)}); //TODO This instruction needs a rework.
+DISCARD_FRAME null
+//

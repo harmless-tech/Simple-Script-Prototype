@@ -6,14 +6,16 @@ This will eventually be rewritten in a lower level language like rust, c, or c++
 
 ### Goals
 - Only primitive data types and arrays.
+- Data structures like tuples, arrays, and matrixes.
 - No structs or objects.
 - Compile to a data structure that the runtime (vm) can run.
-- Ability to include other files.
+- Ability to import other script files.
 - Java-ish like syntax.
-- Allow for easy integration of the vm into other programs.
+- Allow for easy integration of the vm/compiler into other programs.
 - Minimal dependencies for the compiler and runtime.
 - Safety through the use of a compiler, and the ban on null values.
-- Security and safety of the vm/runtime. (All vars should be has private and final has possible)
+- Safety of the vm/runtime created by compiler checks.
+- Vm/runtime basic security by use of private/final data.
 - Allow a heap to hold custom data structures, that will have a long pointer to them. (Part of native extensions)
 
 ### Partial TODO
@@ -30,6 +32,13 @@ This will eventually be rewritten in a lower level language like rust, c, or c++
 - Remove the use of asserts for production code.
 - Allow for low level libs.
 - Compiler/Runtime arguments.
+
+### Notes
+- Maybe the compiler should format the code into a multiline String before processing.
+- May need to reduce milestone 3, compiler is needing to be more complex than expected.
+- Maybe remove scopes within methods for this milestone.
+- Maybe turn the necessary spaces into a reserved char to make processing easier.
+- Is removing the unncessary spaces going to help down the line?
 
 ### Running the code
 ##### Idea
@@ -50,4 +59,3 @@ TODO Add instructions.
 ###### Warning the build process is currently windows only!
 - Run ```gradlew jlink``` to build an application image.
 - Run ```gradlew jpack``` to build an installer.
-TODO Add.

@@ -13,7 +13,7 @@ static int Counter; // 0
 void main() {
 	//import prints/Print.simple; Not valid. All imports are global for a class.
 	
-	Print.println(NativeSystem.args());
+	Print.println("Args: " + NativeSystem.args());
 
 	Print.println(counter);
 	counter = counter + 1; // These should all compile to the same instructions.
