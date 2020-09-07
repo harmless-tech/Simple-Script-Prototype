@@ -137,7 +137,7 @@ public class SimpleCompiler {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String in;
             while((in = reader.readLine()) != null)
-                content.append(in);
+                content.append(in).append("\n");
         }
         catch(IOException e) {
             Log.exception(e);
@@ -153,7 +153,7 @@ public class SimpleCompiler {
         // Remove Comments and Empty Lines.
         content = preCleanUp(content);
         content = preOneLine(content);
-        content = preRemoveSpaces(content);
+        //content = preRemoveSpaces(content);
 
         Log.debug("PreProcessed: " + content);
 
@@ -210,18 +210,46 @@ public class SimpleCompiler {
         for(String line : lines)
             one.append(line);
 
+        Log.debug(one.toString()); //TODO Remove!
+
         return one.toString();
     }
 
-    private String preRemoveSpaces(String content) {
+    //TODO Needed?
+    /*private String preRemoveSpaces(String content) {
+        // Removes bad spaces and tabs.
         //TODO Remove useless spaces.
+        //Log.debug(content);
+
+        // Remove: Space before { - Space after , - Space before and after = + - / * %
+
+        boolean inString = false; // There should always be a char before a ".
+
+
         return "NULL";
+    }*/
+
+    //endregion
+
+    //region <Process>
+
+    private void processor(String content) {
+        // Find ;, {, or }.
+        // If ; process statement.
+        // If {} process scope.
+        // MAKE SURE TO ACCOUNT FOR int a = {return 5;};
     }
+
+    private void processStatement() {
+
+    }
+
+    private void process
 
     //endregion
 
     //TODO PreProcess
     //TODO Process
-    //TODO PostProcess
+    //TODO PostProcess??
     //TODO Cleanup?? /\??
 }

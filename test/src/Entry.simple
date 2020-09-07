@@ -1,4 +1,4 @@
-#tag SYSTEM_LIB // Not really needed, system lib is always included.
+//#tag SYSTEM_LIB // Not really needed, system lib is always included.
 import Basic.simple;
 import okay/RealBasic.simple
 
@@ -19,7 +19,7 @@ final static string QW = "20";
 // Threading: This is going to be a single threaded language. (Maybe later it will change)
 // All methods must be defined. No lamdas.
 
-#tag ENTRY { // #tag Entry == void main()
+void main() { // #tag Entry == void main()
     /*int keke = 23;
 
 
@@ -29,7 +29,7 @@ final static string QW = "20";
 	
 	assert(true);
 
-    #tag ENTRY_STRING // == final String ENTRY_STRING = entry vars;
+    //#tag ENTRY_STRING // == final String ENTRY_STRING = entry vars; REMOVED!
     string startString = "";
 
 	final int ree = 2;

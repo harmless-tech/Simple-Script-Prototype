@@ -3,14 +3,14 @@
 // Removed tags. They are unimportant.
 
 import prints/Print.simple; // Imports needed for checks.
-import BasicCompare.simple;
+import BasicCompare.simple; // Can only do in the class scope. Cannot be in method.
 import BasicMath.simple;
 import BasicLogic.simple;
 
 static final boolean DEBUG = false;
-static int counter; // 0
+static int Counter; // 0
 
-void main {
+void main() {
 	Print.println(NativeSystem.args());
 
 	Print.println(counter);
