@@ -18,6 +18,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 //TODO Allow for single file compiling.
+//TODO Safety.
+//TODO Account for string.
+/*
+ * Take everything up to a semi-colon or a open/close bracket.
+ * If semi-colon pass to statement processor, otherwise if open/close bracket pass to scope processor.
+ * Process and add instructions.
+ */
 public class SimpleCompiler {
 
     private final Map<String, String> buildFileArgs; // Name, Data
