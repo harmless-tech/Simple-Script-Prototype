@@ -4,7 +4,7 @@ import tech.harmless.simplescript.runtime.instructionext.ExtArithmeticOperation;
 import tech.harmless.simplescript.runtime.instructionext.ExtCast;
 import tech.harmless.simplescript.runtime.instructionext.ExtLogicOperation;
 import tech.harmless.simplescript.runtime.instructionext.ExtRelationalOperation;
-import tech.harmless.simplescript.runtime.memory.Cache;
+import tech.harmless.simplescript.runtime.memory.Register;
 import tech.harmless.simplescript.runtime.systemlib.NativeLib;
 import tech.harmless.simplescript.shared.CompiledScript;
 import tech.harmless.simplescript.shared.data.EnumType;
@@ -26,7 +26,7 @@ import java.util.Stack;
 public class SimpleRuntime {
 
     private final CompiledScript script;
-    private final Cache cache;
+    private final Register register;
     private final Stack<Integer> jump;
 
     private boolean running;
@@ -34,7 +34,7 @@ public class SimpleRuntime {
     public SimpleRuntime(CompiledScript script) {
         this.script = script;
 
-        cache = new Cache();
+        register = new Register();
         jump = new Stack<>();
         running = false;
     }
@@ -74,7 +74,7 @@ public class SimpleRuntime {
                         Log.debug("SET_VAR_REG");
 
                         String name = (String) in.getData();
-                        TypedData data = cache.getReg(CacheType.RETURN);
+                        TypedData data = register.getReg(CacheType.RETURN);
 
                         script.setVar(name, data.getValue());
                     }
@@ -114,7 +114,7 @@ public class SimpleRuntime {
                         Log.debug("LOAD_REG");
 
                         Tuple<Integer, TypedData> data = (Tuple<Integer, TypedData>) in.getData();
-                        cache.setReg(data.x, data.y);
+                        register.setReg(data.x, data.y);
                     }
                     case LOAD_REG_VAR -> {
                         Log.debug("LOAD_REG_VAR");
@@ -122,13 +122,13 @@ public class SimpleRuntime {
                         Tuple<Integer, String> data = (Tuple<Integer, String>) in.getData();
                         TypedData varData = script.getVar(data.y);
 
-                        cache.setReg(data.x, varData);
+                        register.setReg(data.x, varData);
                     }
                     case TRANSFER_REG -> {
                         Log.debug("TRANSFER_REG");
 
                         Tuple<Integer, Integer> data = (Tuple<Integer, Integer>) in.getData();
-                        cache.setReg(data.y, cache.getReg(data.x));
+                        register.setReg(data.y, register.getReg(data.x));
                     }
 
                     // Operation Instructions
@@ -136,31 +136,31 @@ public class SimpleRuntime {
                         Log.debug("ARITHMETIC_OPERATION");
 
                         EnumArithmeticOperation data = (EnumArithmeticOperation) in.getData();
-                        TypedData dat1 = cache.getReg(CacheType.OPERATION_ONE);
-                        TypedData dat2 = cache.getReg(CacheType.OPERATION_TWO);
+                        TypedData dat1 = register.getReg(CacheType.OPERATION_ONE);
+                        TypedData dat2 = register.getReg(CacheType.OPERATION_TWO);
 
                         TypedData rData = ExtArithmeticOperation.arithmetic(data, dat1, dat2);
-                        cache.setReg(CacheType.RETURN, rData);
+                        register.setReg(CacheType.RETURN, rData);
                     }
                     case RELATIONAL_OPERATION -> {
                         Log.debug("COMPARE_OPERATION");
 
                         EnumRelationalOperation data = (EnumRelationalOperation) in.getData();
-                        TypedData dat1 = cache.getReg(CacheType.OPERATION_ONE);
-                        TypedData dat2 = cache.getReg(CacheType.OPERATION_TWO);
+                        TypedData dat1 = register.getReg(CacheType.OPERATION_ONE);
+                        TypedData dat2 = register.getReg(CacheType.OPERATION_TWO);
 
                         TypedData rData = ExtRelationalOperation.relational(data, dat1, dat2);
-                        cache.setReg(CacheType.RETURN, rData);
+                        register.setReg(CacheType.RETURN, rData);
                     }
                     case LOGIC_OPERATION -> {
                         Log.debug("LOGIC_OPERATION");
 
                         EnumLogicOperation data = (EnumLogicOperation) in.getData();
-                        TypedData dat1 = cache.getReg(CacheType.OPERATION_ONE);
-                        TypedData dat2 = cache.getReg(CacheType.OPERATION_TWO);
+                        TypedData dat1 = register.getReg(CacheType.OPERATION_ONE);
+                        TypedData dat2 = register.getReg(CacheType.OPERATION_TWO);
 
                         TypedData rData = ExtLogicOperation.logic(data, dat1, dat2);
-                        cache.setReg(CacheType.RETURN, rData);
+                        register.setReg(CacheType.RETURN, rData);
                     }
 
                     // Jumping Instructions
@@ -168,7 +168,7 @@ public class SimpleRuntime {
                         Log.debug("PUSH_JUMP");
 
                         int data = (int) in.getData();
-                        TypedData reg = cache.getReg(CacheType.RETURN);
+                        TypedData reg = register.getReg(CacheType.RETURN);
                         assert reg.getType() == EnumType.BOOLEAN && reg.getValue() != null;
 
                         if((boolean) reg.getValue())
@@ -191,8 +191,8 @@ public class SimpleRuntime {
 
                         EnumType data = (EnumType) in.getData();
 
-                        TypedData tData = ExtCast.cast(cache.getReg(CacheType.CAST), data);
-                        cache.setReg(CacheType.RETURN, tData);
+                        TypedData tData = ExtCast.cast(register.getReg(CacheType.CAST), data);
+                        register.setReg(CacheType.RETURN, tData);
                     }
                     case CALL_NATIVE -> {
                         Log.debug("CALL_NATIVE");
@@ -217,13 +217,13 @@ public class SimpleRuntime {
 
                         // Execute
                         TypedData methodReturn = NativeLib.run(data.x, objs);
-                        cache.setReg(CacheType.RETURN, methodReturn);
+                        register.setReg(CacheType.RETURN, methodReturn);
                     }
                     case EXIT -> {
                         Log.debug("EXIT");
 
                         running = false;
-                        System.exit((int) cache.getReg(CacheType.EXIT_CODE).getValue());
+                        System.exit((int) register.getReg(CacheType.EXIT_CODE).getValue());
                     }
                 }
             }

@@ -3,12 +3,12 @@ package tech.harmless.simplescript.runtime.memory;
 import tech.harmless.simplescript.shared.data.TypedData;
 
 // Register can hold data for multiple loops.
-public class Cache {
+public class Register {
 
     // Be aware that multiple register types might share the same register location.
     private final TypedData[] register;
 
-    public Cache() {
+    public Register() {
         register = new TypedData[3];
     }
 
